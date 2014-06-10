@@ -44,6 +44,10 @@ public class GridSquare {
 	public void drawGreen(Graphics g){
 		g.setColor(Color.GREEN);
 		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		
+		// Gives it a black border!
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, 10 - 2, 10 - 2);
 	} 
 	/**
 	 * gets the row number

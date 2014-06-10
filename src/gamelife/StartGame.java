@@ -126,8 +126,8 @@ public class StartGame extends JPanel implements ActionListener {
 	 */
 	public void updateSquares(){
 		int nbrCount = 0;
-		for(int i = 0; i < 50;i++){
-			for(int j = 0; j < 50;j++){
+		for(int i = 0; i < 49;i++){
+			for(int j = 0; j < 49;j++){
 				nbrCount = countNeighbors(cell,i ,j);
 				// If the current cell is dead and it has three neighbors
 				// it is now alive
@@ -159,28 +159,28 @@ public class StartGame extends JPanel implements ActionListener {
 	 */
 	public int countNeighbors(Cell c[][],int i, int j){
 		int count = 0;
-		if(c[i + 1][j].isAlive()){
+		if(i + 1 <= 49 && c[i + 1][j].isAlive()){
 			count++;
 		}
-		if(c[i - 1][j].isAlive()){
+		if(i - 1 >= 0 && c[i - 1][j].isAlive()){
 			count++;
 		}
-		if(c[i][j + 1].isAlive()){
+		if(j  + 1 <= 49 && c[i][j + 1].isAlive()){
 			count++;
 		}
-		if(c[i][j - 1].isAlive()){
+		if(j - 1 >= 0 && c[i][j - 1].isAlive()){
 			count++;
 		}
-		if(c[i + 1][j + 1].isAlive()){
+		if((i + 1 <= 49 && j <= 49) && c[i + 1][j + 1].isAlive()){
 			count++;
 		}
-		if(c[i - 1][j - 1].isAlive()){
+		if((i - 1 >= 0 && j - 1 >= 0) && c[i - 1][j - 1].isAlive()){
 			count++;
 		}
-		if(c[i + 1][j - 1].isAlive()){
+		if((i + 1 <= 49 && j - 1 >= 0) && c[i + 1][j - 1].isAlive()){
 			count++;
 		}
-		if(c[i - 1][j + 1].isAlive()){
+		if((i - 1 >= 0 && j + 1 <= 49) && c[i - 1][j + 1].isAlive()){
 			count++;
 		}
 		return count;

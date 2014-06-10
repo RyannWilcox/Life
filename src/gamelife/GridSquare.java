@@ -5,7 +5,6 @@ import java.awt.Graphics;
 /**
  * Creates the squares on the grid
  * @author ryanwilcox
- *
  */
 public class GridSquare {
 

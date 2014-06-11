@@ -159,6 +159,7 @@ public class StartGame extends JPanel implements ActionListener {
 	 */
 	public int countNeighbors(Cell c[][],int i, int j){
 		int count = 0;
+		//Bounds checks...
 		if(i + 1 <= 49 && c[i + 1][j].isAlive()){
 			count++;
 		}

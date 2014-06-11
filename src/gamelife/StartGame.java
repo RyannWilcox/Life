@@ -19,9 +19,8 @@ import javax.swing.JPanel;
 public class StartGame extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	JFrame myFrame;
-	int lastX = -100, lastY = -100; 
 	JButton[] button;
-	static final String[] BUTTON_STR = {"Step", "Stop","Quit"};
+	static final String[] BUTTON_STR = {"Go","Step","Stop","Quit"};
 
 	private GridSquare theGrid [][] = new GridSquare [50] [50];
 	private Cell cell[][] = new Cell [50] [50];
@@ -30,6 +29,8 @@ public class StartGame extends JPanel implements ActionListener {
 	private int squareX = 0;  
 	private int squareY = 0;
 	private int clickCount = 0;
+	private Updater updates = new Updater();
+	private Thread update = new Thread(updates);
 	
 	public StartGame(String title,int width,int height){
 		super();
@@ -49,13 +50,14 @@ public class StartGame extends JPanel implements ActionListener {
 		cell[22][24].makeAlive();
 		cell[21][19].makeAlive();
 		cell[22][19].makeAlive();
-		cell[22][20].makeAlive();
+		cell[22][18].makeAlive();
 		
 		layoutSetup(title, width, height);
 		myFrame.setVisible(true); 
 		button[0].setEnabled(true);
 		button[1].setEnabled(true);
 		button[2].setEnabled(true);
+		button[3].setEnabled(true);
 	}
 	public void layoutSetup(String theTitle,int theWidth,int theHeight){
 		myFrame = new JFrame(theTitle) {
@@ -99,17 +101,20 @@ public class StartGame extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		if(e.getSource() == button[0]){
+			System.out.println("Start thread!");
+			update.start();
+		}
+		if(e.getSource() == button[1]){
 			System.out.println("Go through one full generation!");
 			updateSquares();
 			repaint();
 			
 		}
-		if(e.getSource() == button[1]){
-			System.out.println("Stop living life!");
-		}
 		if(e.getSource() == button[2]){
+			update.interrupt();
+		}
+		if(e.getSource() == button[3]){
 			System.exit(1);
 		}
 	}
@@ -189,5 +194,23 @@ public class StartGame extends JPanel implements ActionListener {
 	
 	public static void main(String[] args) {
 		StartGame sg = new StartGame("Life",700,700);	
+	}
+	
+	public class Updater implements Runnable{
+		@Override
+		public void run() {
+			while(true){
+				updateSquares();
+				repaint();
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
 	}
 }

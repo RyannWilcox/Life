@@ -12,8 +12,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 public class StartGame extends JPanel implements ActionListener {
@@ -21,36 +19,44 @@ public class StartGame extends JPanel implements ActionListener {
 	JFrame myFrame;
 	JButton[] button;
 	static final String[] BUTTON_STR = {"Go","Step","Stop","Quit"};
+	private final int MAX_ROWS = 100;
+	private final int MAX_COLUMNS = 100;
 
-	private GridSquare theGrid [][] = new GridSquare [50] [50];
-	private Cell cell[][] = new Cell [50] [50];
-	private int i;
-	private int j;  
+	private GridSquare theGrid [][] = new GridSquare [MAX_ROWS] [MAX_COLUMNS];
+	private Cell cell[][] = new Cell [MAX_ROWS] [MAX_COLUMNS];
 	private int squareX = 0;  
 	private int squareY = 0;
 	private int clickCount = 0;
 	private Updater updates = new Updater();
 	private Thread update = new Thread(updates);
+	private boolean firstStart = true;
 	
 	public StartGame(String title,int width,int height){
 		super();
-		//Populate cell array
-		for(int i = 0; i < 50;i++){
-			for(int j = 0; j < 50;j++){
+		// Populate cell array and nextGen array
+		// Populate Grid array
+		// They will all start off dead here..
+		for(int i = 0; i < MAX_ROWS;i++){
+			for(int j = 0; j < MAX_COLUMNS;j++){
+				theGrid[i][j] = new GridSquare(i*10,j*10,i,j);
 				cell[i][j] = new Cell();
 			}
 		}
 		
+
 		//this is for testing until I get the mouse clicks working
 		cell[20][20].makeAlive();
 		cell[20][21].makeAlive();
 		cell[20][22].makeAlive();
-		cell[21][23].makeAlive();
-		cell[22][23].makeAlive();
-		cell[22][24].makeAlive();
-		cell[21][19].makeAlive();
-		cell[22][19].makeAlive();
-		cell[22][18].makeAlive();
+		cell[23][20].makeAlive();
+		cell[23][21].makeAlive();
+		cell[23][22].makeAlive();
+		
+		cell[21][20].makeAlive();
+		cell[22][20].makeAlive();
+		
+		cell[22][22].makeAlive();
+		cell[21][22].makeAlive();
 		
 		layoutSetup(title, width, height);
 		myFrame.setVisible(true); 
@@ -88,25 +94,43 @@ public class StartGame extends JPanel implements ActionListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		for (i = 0; i < 50; i++) {
-			for (j = 0; j < 50; j++) {
-				theGrid[i][j] = new GridSquare(i*10,j*10,i,j);	// populate 2d array
+		for (int i = 0; i < MAX_ROWS; i++) {
+			for (int j = 0; j < MAX_COLUMNS; j++) {
 				theGrid[i][j].drawSquare(g);//draw grid in graphic panel
-				if(cell[i][j].isAlive()){
-					theGrid[i][j].drawGreen(g);
+			}
+		}
+		
+		if(firstStart){
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					if(cell[i][j].isAlive()){
+						theGrid[i][j].drawGreen(g);
+					}
 				}
 			}
-		}		
+		}
+		
+		if(!firstStart){
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					if(cell[i][j].isAlive()){
+						theGrid[i][j].drawGreen(g);
+					}
+				}
+			}
+		}
+		
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button[0]){
+			firstStart = false;
 			System.out.println("Start thread!");
 			update.start();
 		}
 		if(e.getSource() == button[1]){
-			System.out.println("Go through one full generation!");
+			firstStart = false;
 			updateSquares();
 			repaint();
 			
@@ -114,6 +138,7 @@ public class StartGame extends JPanel implements ActionListener {
 		if(e.getSource() == button[2]){
 			update.interrupt();
 		}
+		
 		if(e.getSource() == button[3]){
 			System.exit(1);
 		}
@@ -131,29 +156,36 @@ public class StartGame extends JPanel implements ActionListener {
 	 */
 	public void updateSquares(){
 		int nbrCount = 0;
-		for(int i = 0; i < 49;i++){
-			for(int j = 0; j < 49;j++){
+		//This will become the updated Generation of cells
+		Cell nextGen[][] = new Cell[MAX_ROWS][MAX_COLUMNS];
+		
+		for(int i = 0; i < MAX_ROWS;i++){
+			for(int j = 0; j < MAX_COLUMNS;j++){
+				nextGen[i][j] = new Cell();
+			}
+		}
+		
+		for(int i = 0; i < MAX_ROWS;i++){
+			for(int j = 0; j < MAX_COLUMNS;j++){
 				nbrCount = countNeighbors(cell,i ,j);
 				// If the current cell is dead and it has three neighbors
 				// it is now alive
-				if(cell[i][j].isAlive() == false && nbrCount == 3){
-					cell[i][j].makeAlive();
+				if((!cell[i][j].isAlive()) && nbrCount == 3){
+					nextGen[i][j].makeAlive();
 				}
-				// less than two neighbors. cell dies
-				if(cell[i][j].isAlive() && nbrCount < 2){
-					cell[i][j].makeDead();
-				}
-				// 2 or 3 neighbors.  the cell lives
+					
+				//2 or 3 neighbors.  the cell lives
 				if(cell[i][j].isAlive() &&( nbrCount == 2 || nbrCount == 3)){
-					cell[i][j].makeAlive();
+					nextGen[i][j].makeAlive();
 				}
-				// 3 or more neighbors. the cell dies!
-				if(cell[i][j].isAlive() && nbrCount > 3){
-					cell[i][j].makeDead();
+					
+				// less than 2 or greater than 3. the cell dies!
+				if(cell[i][j].isAlive() && (nbrCount < 2 || nbrCount > 3)){
+					nextGen[i][j].makeDead();
 				}
 			}
-			nbrCount = 0;
 		}
+		cell = nextGen;
 	}
 	/**
 	 * Will Check the 8 possible neighbors
@@ -164,36 +196,37 @@ public class StartGame extends JPanel implements ActionListener {
 	 */
 	public int countNeighbors(Cell c[][],int i, int j){
 		int count = 0;
-		//Bounds checks...
-		if(i + 1 <= 49 && c[i + 1][j].isAlive()){
+		//Bounds checks..
+		if(i + 1 < 100 && c[i + 1][j].isAlive()){
 			count++;
 		}
 		if(i - 1 >= 0 && c[i - 1][j].isAlive()){
 			count++;
 		}
-		if(j  + 1 <= 49 && c[i][j + 1].isAlive()){
+		if(j  + 1 < 100 && c[i][j + 1].isAlive()){
 			count++;
 		}
 		if(j - 1 >= 0 && c[i][j - 1].isAlive()){
 			count++;
 		}
-		if((i + 1 <= 49 && j <= 49) && c[i + 1][j + 1].isAlive()){
+		if((i + 1 < 100 && j + 1 < 100) && c[i + 1][j + 1].isAlive()){
 			count++;
 		}
 		if((i - 1 >= 0 && j - 1 >= 0) && c[i - 1][j - 1].isAlive()){
 			count++;
 		}
-		if((i + 1 <= 49 && j - 1 >= 0) && c[i + 1][j - 1].isAlive()){
+		if((i + 1 < 100 && j - 1 >= 0) && c[i + 1][j - 1].isAlive()){
 			count++;
 		}
-		if((i - 1 >= 0 && j + 1 <= 49) && c[i - 1][j + 1].isAlive()){
+		if((i - 1 >= 0 && j + 1 < 100) && c[i - 1][j + 1].isAlive()){
 			count++;
 		}
+		
 		return count;
 	}
 	
 	public static void main(String[] args) {
-		StartGame sg = new StartGame("Life",700,700);	
+		StartGame sg = new StartGame("Life",1000,800);	
 	}
 	
 	public class Updater implements Runnable{
@@ -203,7 +236,7 @@ public class StartGame extends JPanel implements ActionListener {
 				updateSquares();
 				repaint();
 				try {
-					Thread.sleep(300);
+					Thread.sleep(150);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -34,7 +34,7 @@ public class GridSquare {
 	 * @param g
 	 */
 	public void drawSquare(Graphics g){
-		g.setColor(Color.BLACK);
+		g.setColor(Color.GRAY);
 		g.drawRect(x,y,SQUARE_WIDTH,SQUARE_HEIGHT);
 	}
 

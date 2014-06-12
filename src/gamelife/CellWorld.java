@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+//import java.awt.event.MouseEvent;
+//import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,15 +25,16 @@ public class CellWorld extends JPanel implements ActionListener {
 	private Cell cell[][] = new Cell[MAX_ROWS][MAX_COLUMNS];
 	private CellUpdate updateCells = new CellUpdate();
 	/*
-	 * private int squareX = 0; private int squareY = 0; private int clickCount
-	 * = 0;
+	 * private int squareX = 0; 
+	 * private int squareY = 0;
+	 * private int clickCount = 0;
 	 */
 	private Updater updates = new Updater();
-	private Thread update = new Thread(updates);
-	private boolean firstStart = true;
+	private Thread updateThread = new Thread(updates);
 
 	public CellWorld(String title, int width, int height) {
 		super();
+		setDoubleBuffered(true);
 		// Populate cell array
 		// Populate Grid array
 		// They will all start off dead here..
@@ -45,6 +46,7 @@ public class CellWorld extends JPanel implements ActionListener {
 		}
 
 		// this is for testing until I get the mouse clicks working
+		// This group starts as a box and then turns into a blinker
 		cell[20][20].makeAlive();
 		cell[20][21].makeAlive();
 		cell[20][22].makeAlive();
@@ -57,8 +59,18 @@ public class CellWorld extends JPanel implements ActionListener {
 
 		cell[22][22].makeAlive();
 		cell[21][22].makeAlive();
-
-		layoutSetup(title, width, height);
+		//<><><><><><><><><><><><><.
+		
+		//This one is called the R-Pentomino pattern..
+		cell[50][50].makeAlive();
+		cell[50][51].makeAlive();
+		cell[50][52].makeAlive();
+		
+		cell[49][51].makeAlive();
+		cell[51][50].makeAlive();
+		
+		
+	    layoutSetup(title, width, height);
 		myFrame.setVisible(true);
 	}
 
@@ -70,13 +82,7 @@ public class CellWorld extends JPanel implements ActionListener {
 	 * @param theHeight
 	 */
 	public void layoutSetup(String theTitle, int theWidth, int theHeight) {
-		myFrame = new JFrame(theTitle) {
-			private static final long serialVersionUID = 1L;
-
-			public void paint(Graphics g) {
-				paintComponents(g);
-			}
-		};
+		myFrame = new JFrame(theTitle);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.setSize(theWidth, theHeight);
 		myFrame.setLayout(new BorderLayout());
@@ -97,6 +103,7 @@ public class CellWorld extends JPanel implements ActionListener {
 	 * Paints the grid
 	 */
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -115,19 +122,18 @@ public class CellWorld extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button[0]) {
-			firstStart = false;
 			System.out.println("Start thread!");
-			update.start();
+		    setDoubleBuffered(true);
+			updateThread.start();
 		}
 		if (e.getSource() == button[1]) {
-			firstStart = false;
 			cell = updateCells.updateSquares(cell, MAX_ROWS, MAX_COLUMNS);
 			// updateSquares();
 			repaint();
 
 		}
 		if (e.getSource() == button[2]) {
-			update.interrupt();
+			updateThread.interrupt();
 		}
 
 		if (e.getSource() == button[3]) {
@@ -149,7 +155,7 @@ public class CellWorld extends JPanel implements ActionListener {
 				cell = updateCells.updateSquares(cell, 100, 100);
 				repaint();
 				try {
-					Thread.sleep(180);
+					Thread.sleep(120);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

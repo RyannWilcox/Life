@@ -14,13 +14,14 @@ public class GridSquare {
 	private int columnNumber;
 	private int x;
 	private int y;
-/**
- * constructor for a square on the grid
- * @param tempx
- * @param tempy
- * @param rowNb
- * @param colmNb
- */
+	
+	/**
+	 * constructor for a square on the grid
+	 * @param tempx
+	 * @param tempy
+	 * @param rowNb
+	 * @param colmNb
+	 */
 	public GridSquare(int tempx, int tempy, int rowNb,int colmNb){
 		rowNumber = rowNb;
 		columnNumber = colmNb;
@@ -49,6 +50,7 @@ public class GridSquare {
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, 10 - 2, 10 - 2);
 	} 
+	
 	/**
 	 * gets the row number
 	 * @return the row number of the square
@@ -56,6 +58,7 @@ public class GridSquare {
 	public int rowNumber() {
 		return rowNumber;
 	}
+	
 	/**
 	 *  gets the column number 
 	 * @return the column number of the square

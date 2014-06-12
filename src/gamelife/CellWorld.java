@@ -9,8 +9,12 @@ import java.awt.event.ActionListener;
 //import java.awt.event.MouseEvent;
 //import java.awt.event.MouseListener;
 
+
+
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CellWorld extends JPanel implements ActionListener {
@@ -24,6 +28,10 @@ public class CellWorld extends JPanel implements ActionListener {
 	private GridSquare theGrid[][] = new GridSquare[MAX_ROWS][MAX_COLUMNS];
 	private Cell cell[][] = new Cell[MAX_ROWS][MAX_COLUMNS];
 	private CellUpdate updateCells = new CellUpdate();
+	private boolean running = true;
+	private JLabel generation = new JLabel("Gen: 1");
+	private int genCount = 1;
+
 	/*
 	 * private int squareX = 0; 
 	 * private int squareY = 0;
@@ -96,6 +104,7 @@ public class CellWorld extends JPanel implements ActionListener {
 			button[i].setFocusable(false);
 			controlPanel.add(button[i]);
 		}
+		controlPanel.add(generation);
 		myFrame.add(controlPanel, BorderLayout.EAST);
 	}
 
@@ -106,7 +115,7 @@ public class CellWorld extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
-
+		
 		for (int i = 0; i < MAX_ROWS; i++) {
 			for (int j = 0; j < MAX_COLUMNS; j++) {
 				theGrid[i][j].drawSquare(g);// draw grid in graphic panel
@@ -128,12 +137,15 @@ public class CellWorld extends JPanel implements ActionListener {
 		}
 		if (e.getSource() == button[1]) {
 			cell = updateCells.updateSquares(cell, MAX_ROWS, MAX_COLUMNS);
-			// updateSquares();
+			genCount++;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
 			repaint();
 
 		}
 		if (e.getSource() == button[2]) {
-			updateThread.interrupt();
+				running = false;
 		}
 
 		if (e.getSource() == button[3]) {
@@ -151,8 +163,12 @@ public class CellWorld extends JPanel implements ActionListener {
 	public class Updater implements Runnable {
 		@Override
 		public void run() {
-			while (true) {
+			while (running) {
 				cell = updateCells.updateSquares(cell, 100, 100);
+				genCount++;
+				String genStr= Integer.toString(genCount);
+				/*update JLabel*/
+				generation.setText("Gen: "+genStr);
 				repaint();
 				try {
 					Thread.sleep(120);

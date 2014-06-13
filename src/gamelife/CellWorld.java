@@ -55,6 +55,10 @@ public class CellWorld extends JPanel implements ActionListener {
 			}
 		}
 		
+		/*
+		 * Will allow the user to click and add or
+		 * click and remove any cells
+		 */
 		addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -65,7 +69,6 @@ public class CellWorld extends JPanel implements ActionListener {
 					newRow = e.getX() / (1000/100);
 					newCol = e.getY() / (1000/100);
 					cell[newRow][newCol].makeAlive();
-					
 					// System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 					// For testing purposes...
 					repaint();

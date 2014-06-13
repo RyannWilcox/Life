@@ -94,6 +94,73 @@ public class CellUpdate {
 		
 		return count;
 	}
+	/**
+	 * Creates a famous formation in the grid
+	 * @param c
+	 * @return set up for R-Pentomino
+	 */
+	public Cell[][] createRPentomino(Cell c[][]){
+		c[50][50].makeAlive();
+		c[50][51].makeAlive();
+		c[50][52].makeAlive();
+		
+		c[49][51].makeAlive();
+		c[51][50].makeAlive();
+		return c;
+	}
+	
+	/**
+	 * The most common period 3 oscillator
+	 * 
+	 * @param c
+	 * @return set up for pulsar
+	 */
+	public Cell[][] createPulsar(Cell c[][]){
+		c[56][10].makeAlive();c[56][11].makeAlive();
+		c[56][12].makeAlive();c[56][13].makeAlive();
+		c[56][14].makeAlive();c[60][10].makeAlive();
+		c[60][12].makeAlive();c[60][11].makeAlive();
+		c[60][13].makeAlive();c[60][14].makeAlive();
+		c[58][10].makeAlive();c[58][14].makeAlive();
+		return c;
+	}
+	
+	/**
+	 * An interesting infinite pattern
+	 * @param c
+	 * @return setup for glider gun
+	 */
+	public Cell[][] createGliderGun(Cell c[][]){
+		c[29][29].makeAlive();c[29][30].makeAlive();
+		c[30][30].makeAlive();c[30][29].makeAlive();
+		c[39][29].makeAlive();c[39][30].makeAlive();
+		c[39][31].makeAlive();c[40][28].makeAlive();
+		c[40][32].makeAlive();c[41][33].makeAlive();
+		c[42][33].makeAlive();c[41][27].makeAlive();
+		c[42][27].makeAlive();c[44][32].makeAlive();
+		c[45][31].makeAlive();c[45][30].makeAlive();
+		c[45][29].makeAlive();c[46][30].makeAlive();
+		c[44][28].makeAlive();c[43][30].makeAlive();
+		c[49][29].makeAlive();c[49][28].makeAlive();
+		c[49][27].makeAlive();c[50][29].makeAlive();
+		c[50][28].makeAlive();c[50][27].makeAlive();
+		c[51][26].makeAlive();c[51][30].makeAlive();
+		c[53][30].makeAlive();c[53][31].makeAlive();
+		c[53][26].makeAlive();c[53][25].makeAlive();
+		c[63][27].makeAlive();c[63][28].makeAlive();
+		c[63][27].makeAlive();c[64][28].makeAlive();
+		c[64][27].makeAlive();
+		return c;
+	}
+	
+	public Cell[][] clearCells(Cell c[][],int rows, int cols){
+		for(int i = 0; i < rows;i++){
+			for(int j = 0; j < cols;j++){
+				c[i][j] = new Cell();
+			}
+		}
+		return c;
+	}
 	
 	public int getMax(){
 		return MAX;

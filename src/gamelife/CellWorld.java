@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 
 
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,11 +35,10 @@ public class CellWorld extends JPanel implements ActionListener {
 	private JLabel generation = new JLabel("Gen: 1");
 	private int genCount = 1;
 
-	/*
-	 * private int squareX = 0; 
-	 * private int squareY = 0;
-	 * private int clickCount = 0;
-	 */
+	
+	private int newRow = 0; 
+	private int newCol = 0;
+	 
 	private Updater updates = new Updater();
 	private Thread updateThread = new Thread(updates);
 
@@ -52,6 +54,43 @@ public class CellWorld extends JPanel implements ActionListener {
 				cell[i][j] = new Cell();
 			}
 		}
+		
+		addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int count = e.getClickCount();
+				
+				//Make clicked cell alive
+				if(count == 1){
+					newRow = e.getX() / (1000/100);
+					newCol = e.getY() / (1000/100);
+					cell[newRow][newCol].makeAlive();
+					
+					// System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
+					// For testing purposes...
+					repaint();
+				}
+				//Make clicked cell dead
+				else if(count == 2){
+					newRow = e.getX() / (1000/100);
+					newCol = e.getY() / (1000/100);
+					cell[newRow][newCol].makeDead();
+					// System.out.println("Cell dies at: ("+ newRow + ","+newCol+")");
+					// For testing purposes
+					repaint();
+					
+				}
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		
+		});
 
 		// this is for testing until I get the mouse clicks working
 		// This group starts as a box and then turns into a blinker

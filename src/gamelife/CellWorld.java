@@ -43,7 +43,6 @@ public class CellWorld extends JPanel implements ActionListener {
 	private int newCol = 0;
 	 
 	private Updater updates = new Updater();
-	private Thread updateThread = new Thread(updates);
 
 	public CellWorld(String title, int width, int height) {
 		super();
@@ -198,6 +197,8 @@ public class CellWorld extends JPanel implements ActionListener {
 		if (e.getSource() == button[0]) {
 			System.out.println("Start thread!");
 		    setDoubleBuffered(true);
+		    running = true;
+		    Thread updateThread = new Thread(updates);
 			updateThread.start();
 		}
 		if (e.getSource() == button[1]) {

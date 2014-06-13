@@ -18,6 +18,9 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class CellWorld extends JPanel implements ActionListener {
@@ -34,7 +37,7 @@ public class CellWorld extends JPanel implements ActionListener {
 	private boolean running = true;
 	private JLabel generation = new JLabel("Gen: 1");
 	private int genCount = 1;
-
+	private JMenuBar menu = new JMenuBar();
 	
 	private int newRow = 0; 
 	private int newCol = 0;
@@ -69,7 +72,7 @@ public class CellWorld extends JPanel implements ActionListener {
 					newRow = e.getX() / (1000/100);
 					newCol = e.getY() / (1000/100);
 					cell[newRow][newCol].makeAlive();
-					// System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
+					System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 					// For testing purposes...
 					repaint();
 				}
@@ -94,31 +97,6 @@ public class CellWorld extends JPanel implements ActionListener {
 			public void mouseExited(MouseEvent e) {}
 		
 		});
-
-		// this is for testing until I get the mouse clicks working
-		// This group starts as a box and then turns into a blinker
-		cell[20][20].makeAlive();
-		cell[20][21].makeAlive();
-		cell[20][22].makeAlive();
-		cell[23][20].makeAlive();
-		cell[23][21].makeAlive();
-		cell[23][22].makeAlive();
-
-		cell[21][20].makeAlive();
-		cell[22][20].makeAlive();
-
-		cell[22][22].makeAlive();
-		cell[21][22].makeAlive();
-		//<><><><><><><><><><><><><.
-		
-		//This one is called the R-Pentomino pattern..
-		cell[50][50].makeAlive();
-		cell[50][51].makeAlive();
-		cell[50][52].makeAlive();
-		
-		cell[49][51].makeAlive();
-		cell[51][50].makeAlive();
-		
 		
 	    layoutSetup(title, width, height);
 		myFrame.setVisible(true);
@@ -148,6 +126,51 @@ public class CellWorld extends JPanel implements ActionListener {
 		}
 		controlPanel.add(generation);
 		myFrame.add(controlPanel, BorderLayout.EAST);
+		
+		/*
+		 * Menu for selecting specific patterns
+		 */
+		myFrame.setJMenuBar(menu);
+		JMenu choices = new JMenu("Patterns");
+		JMenuItem gliderGun = new JMenuItem("GliderGun");
+		JMenuItem pulsar = new JMenuItem("Pulsar");
+		JMenuItem Pentomino = new JMenuItem("R-Pentomino");
+		menu.add(choices);
+		choices.add(gliderGun);
+		choices.add(pulsar);
+		choices.add(Pentomino);
+		
+		
+		/*
+		 * Clears the cells and then prints the pattern to the
+		 * grid.
+		 */
+		gliderGun.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+				cell = updateCells.createGliderGun(cell);
+				repaint();
+			}
+		});
+		
+		pulsar.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+				cell = updateCells.createPulsar(cell);
+				repaint();
+			}
+		});
+		
+		Pentomino.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+				cell = updateCells.createRPentomino(cell);
+				repaint();
+			}
+		});
 	}
 
 	/**

@@ -6,6 +6,10 @@ version of Conway's Game of Life
 It is a work in progress...</br>
 
 
+v. 3.0:
+You can now Pick different patterns and change the speed of generation iterations.  Colors coming soon....
+
+
 v. 2.0:
 You can now click to manipulate cell placement.  More functionality coming soon..
 

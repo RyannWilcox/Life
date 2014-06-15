@@ -11,14 +11,24 @@ public class Cell implements CellState{
 		state = false;
 	}
 	
+	/**
+	 *  Changes the cell states to true
+	 */
 	public void makeAlive(){
 		state = true;
 	}
 	
+	/**
+	 * Cell state is changed to false
+	 */
 	public void makeDead(){
 		state = false;
 	}
 	
+	/**
+	 * Check to see the current state
+	 * of the cell.
+	 */
 	public boolean isAlive(){
 		return state;
 	}

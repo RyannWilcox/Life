@@ -14,6 +14,8 @@ public class GridSquare {
 	private int columnNumber;
 	private int x;
 	private int y;
+	private int innerWidth = 8;
+	private int innerHeight = 8;
 	
 	/**
 	 * constructor for a square on the grid
@@ -39,7 +41,7 @@ public class GridSquare {
 	}
 
 	/**
-	 * draws the starting point on the grid
+	 * draws a green cell that is considered "alive"
 	 * @param g the graphics
 	 */
 	public void drawGreen(Graphics g){
@@ -48,8 +50,58 @@ public class GridSquare {
 		
 		// Gives it a black border!
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, 10 - 2, 10 - 2);
+		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
 	} 
+	
+	/**
+	 * draws a red cell that is considered "alive"
+	 * @param g the graphics
+	 */
+	public void drawRed(Graphics g){
+		g.setColor(Color.RED);
+		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		
+		// Gives it a black border!
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
+	}
+	
+	/**
+	 * draws a black cell that is considered "alive"
+	 * @param g the graphics
+	 */
+	public void drawBlack(Graphics g){
+		g.setColor(Color.BLACK);
+		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		
+		// Gives it a gray border!
+		g.setColor(Color.GRAY);
+		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
+	} 
+	
+	
+	
+	
+	/*
+	 * Getters and setters to set the border
+	 * around the alive cells
+	 */
+	public int getInnerWidth(){
+		return innerWidth;
+	}
+	
+	public void setInnerWidth(int w){
+		innerWidth = w;
+	}
+	
+	public int getInnerHeight(){
+		return innerHeight;
+	}
+	
+	public void setInnerHeight(int h){
+		innerHeight = h;
+	}
+	/*Getters and setters to set the border for cells*/
 	
 	/**
 	 * gets the row number

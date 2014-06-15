@@ -25,7 +25,7 @@ public class CellUpdate {
 		 * Populates the next generation with
 		 * new empty cells
 		 */
-		for(int i = 0; i < rows;i++){
+		for(int i = 0; i < rows;i++){ 
 			for(int j = 0; j < cols;j++){
 				nextGen[i][j] = new Cell();
 			}
@@ -150,6 +150,52 @@ public class CellUpdate {
 		c[63][27].makeAlive();c[63][28].makeAlive();
 		c[63][27].makeAlive();c[64][28].makeAlive();
 		c[64][27].makeAlive();
+		return c;
+	}
+	
+	public Cell[][] createSpider(Cell c[][]){
+		c[10][12].makeAlive();c[11][13].makeAlive();c[11][14].makeAlive();
+		c[10][14].makeAlive();c[9][14].makeAlive();c[22][66].makeAlive();
+		c[23][67].makeAlive();c[23][68].makeAlive();c[22][68].makeAlive();
+		c[21][68].makeAlive();c[87][7].makeAlive();c[88][8].makeAlive();
+		c[69][35].makeAlive();c[89][6].makeAlive();c[89][7].makeAlive();
+		c[69][36].makeAlive();c[68][35].makeAlive();c[67][35].makeAlive();
+		c[66][34].makeAlive();c[65][34].makeAlive();c[65][35].makeAlive();
+		c[65][36].makeAlive();c[65][37].makeAlive();c[64][37].makeAlive();
+		c[63][36].makeAlive();c[68][38].makeAlive();c[67][38].makeAlive();
+		c[67][39].makeAlive();c[68][39].makeAlive();c[65][39].makeAlive();
+		c[64][39].makeAlive();c[64][40].makeAlive();c[63][35].makeAlive();
+		c[63][34].makeAlive();c[62][35].makeAlive();c[61][35].makeAlive();
+		c[61][34].makeAlive();c[60][33].makeAlive();c[59][34].makeAlive();
+		c[58][34].makeAlive();c[57][36].makeAlive();c[57][37].makeAlive();
+		c[57][38].makeAlive();c[55][36].makeAlive();c[55][37].makeAlive();
+		c[55][38].makeAlive();c[54][34].makeAlive();c[53][34].makeAlive();
+		c[52][33].makeAlive();c[51][34].makeAlive();c[51][35].makeAlive();
+		c[50][35].makeAlive();c[49][35].makeAlive();c[49][34].makeAlive();
+		c[49][36].makeAlive();c[48][37].makeAlive();c[47][37].makeAlive();
+		c[47][36].makeAlive();c[47][35].makeAlive();c[47][34].makeAlive();
+		c[45][35].makeAlive();c[44][35].makeAlive();c[43][35].makeAlive();
+		c[43][36].makeAlive();c[44][39].makeAlive();c[44][38].makeAlive();
+		c[45][38].makeAlive();c[45][39].makeAlive();c[47][39].makeAlive();
+		c[48][39].makeAlive();c[48][40].makeAlive();c[46][34].makeAlive();
+		c[37][1].makeAlive();c[38][2].makeAlive();c[38][3].makeAlive();
+		c[37][3].makeAlive();c[36][3].makeAlive();
+		
+		return c;
+	}
+	public Cell[][] createCustom(Cell c[][]){
+		c[52][25].makeAlive();c[54][25].makeAlive();c[53][25].makeAlive();
+		c[55][25].makeAlive();c[56][25].makeAlive();c[57][25].makeAlive();
+		c[58][25].makeAlive();c[55][24].makeAlive();c[55][23].makeAlive();
+		c[55][22].makeAlive();c[55][21].makeAlive();c[55][27].makeAlive();
+		c[55][26].makeAlive();c[55][28].makeAlive();c[55][29].makeAlive();
+		c[55][30].makeAlive();c[55][31].makeAlive();c[54][31].makeAlive();
+		c[54][30].makeAlive();c[53][29].makeAlive();c[56][31].makeAlive();
+		c[56][30].makeAlive();c[57][29].makeAlive();
+
+
+
+
 		return c;
 	}
 	

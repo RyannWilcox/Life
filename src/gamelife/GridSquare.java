@@ -17,6 +17,10 @@ public class GridSquare {
 	private int innerWidth = 8;
 	private int innerHeight = 8;
 	
+	public enum colors{GREEN,RED,BLACK};
+	private colors clr;
+
+	
 	/**
 	 * constructor for a square on the grid
 	 * @param tempx
@@ -24,7 +28,8 @@ public class GridSquare {
 	 * @param rowNb
 	 * @param colmNb
 	 */
-	public GridSquare(int tempx, int tempy, int rowNb,int colmNb){
+	public GridSquare(int tempx, int tempy, int rowNb,int colmNb,colors c){
+		clr = c;
 		rowNumber = rowNb;
 		columnNumber = colmNb;
 		x = tempx;
@@ -78,10 +83,25 @@ public class GridSquare {
 		g.setColor(Color.GRAY);
 		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
 	} 
-	
-	
-	
-	
+
+	/**
+	 * Finds what color is set for
+	 * the live cell to be painted
+	 * @param g
+	 */
+	public void findChosenColor(Graphics g){
+		switch(getColor()){
+		case GREEN:
+			drawGreen(g);
+			break;
+		case RED:
+			drawRed(g);
+			break;
+		case BLACK:
+			drawBlack(g);
+			break;
+		}
+	}
 	/*
 	 * Getters and setters to set the border
 	 * around the alive cells
@@ -102,6 +122,24 @@ public class GridSquare {
 		innerHeight = h;
 	}
 	/*Getters and setters to set the border for cells*/
+	
+	
+	/**
+	 *  Find what color the square is going
+	 *  to be painted
+	 */
+	public colors getColor(){
+		return clr;
+	}
+	
+	/**
+	 * Set what color the live
+	 * square will be painted
+	 * @param color
+	 */
+	public void setColor(colors color){
+		clr = color;
+	}
 	
 	/**
 	 * gets the row number

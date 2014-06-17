@@ -1,28 +1,22 @@
 package gamelife;
 
+import gamelife.GridSquare.colors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.event.MouseEvent;
-//import java.awt.event.MouseListener;
-
-
-
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JRadioButtonMenuItem;
 
 public class CellWorld extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +38,11 @@ public class CellWorld extends JPanel implements ActionListener {
 	private int newCol = 0;
 	private int speed = 120;
 	private Updater updates = new Updater();
-
+	
+	/*possible colors to paint the live cells*/
+	private colors grn = colors.GREEN;
+	private colors rd = colors.RED;
+	private colors blck = colors.BLACK;
 	public CellWorld(String title, int width, int height) {
 		super();
 		setDoubleBuffered(true);
@@ -53,7 +51,7 @@ public class CellWorld extends JPanel implements ActionListener {
 		// They will all start off dead here..
 		for (int i = 0; i < MAX_ROWS; i++) {
 			for (int j = 0; j < MAX_COLUMNS; j++) {
-				theGrid[i][j] = new GridSquare(i * 10, j * 10, i, j);
+				theGrid[i][j] = new GridSquare(i * 10, j * 10, i, j, grn);
 				cell[i][j] = new Cell();
 			}
 		}
@@ -132,28 +130,45 @@ public class CellWorld extends JPanel implements ActionListener {
 		myFrame.setJMenuBar(menu);
 		JMenu choices = new JMenu("Patterns");
 		JMenu speeds = new JMenu("Speeds");
+		JMenu colors = new JMenu("Colors");
+		JMenu zoom = new JMenu("Zoom");
 		
 		/*Patterns*/
-		JMenuItem gliderGun = new JMenuItem("GliderGun");
-		JMenuItem pulsar = new JMenuItem("Pulsar");
-		JMenuItem Pentomino = new JMenuItem("R-Pentomino");
-		JMenuItem spider = new JMenuItem("Spider");
-		JMenuItem custom = new JMenuItem("Custom");
+		ButtonGroup patternGroup = new ButtonGroup();
+		JRadioButtonMenuItem gliderGun = new JRadioButtonMenuItem("GliderGun");
+		JRadioButtonMenuItem pulsar = new JRadioButtonMenuItem("Pulsar");
+		JRadioButtonMenuItem Pentomino = new JRadioButtonMenuItem("R-Pentomino");
+		JRadioButtonMenuItem spider = new JRadioButtonMenuItem("Spider");
+		JRadioButtonMenuItem custom = new JRadioButtonMenuItem("Custom");
+		patternGroup.add(gliderGun);patternGroup.add(Pentomino);patternGroup.add(spider);patternGroup.add(custom);
 		
 		/*Speeds*/
-		JMenuItem fast = new JMenuItem("Fast");
-		JMenuItem med = new JMenuItem("Medium");
-		JMenuItem slow = new JMenuItem("Slow");
+		ButtonGroup speedGroup = new ButtonGroup();
+		JRadioButtonMenuItem fast = new JRadioButtonMenuItem("Fast");
+		JRadioButtonMenuItem med = new JRadioButtonMenuItem("Medium");
+		JRadioButtonMenuItem slow = new JRadioButtonMenuItem("Slow");
+		speedGroup.add(fast);speedGroup.add(slow);speedGroup.add(med);
+		
+		/*Colors*/
+		ButtonGroup colorGroup = new ButtonGroup();
+		JRadioButtonMenuItem green = new JRadioButtonMenuItem("Green");
+		JRadioButtonMenuItem red = new JRadioButtonMenuItem("Red");
+		JRadioButtonMenuItem black = new JRadioButtonMenuItem("Black");
+		colorGroup.add(black);colorGroup.add(red);colorGroup.add(green);
+		
+		/*Zoom!*/
+		JRadioButtonMenuItem in = new JRadioButtonMenuItem("In");
+		JRadioButtonMenuItem out = new JRadioButtonMenuItem("Out");
+		
 		menu.add(choices);
 		menu.add(speeds);
-		choices.add(gliderGun);
-		choices.add(pulsar);
-		choices.add(Pentomino);
-		choices.add(spider);
-		choices.add(custom);
-		speeds.add(fast);
-		speeds.add(med);
-		speeds.add(slow);
+		menu.add(colors);
+		menu.add(zoom);
+		choices.add(gliderGun);choices.add(pulsar);choices.add(Pentomino);
+		choices.add(spider);choices.add(custom);
+		speeds.add(fast); speeds.add(med); speeds.add(slow);
+		colors.add(green); colors.add(red); colors.add(black);
+		zoom.add(in); zoom.add(out);
 		
 		
 		/*
@@ -255,6 +270,55 @@ public class CellWorld extends JPanel implements ActionListener {
 				speed = 180;
 			}
 		});
+		/*CHANGES THE COLOR OF THE CELLS!!!*/
+		red.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < MAX_ROWS; i++) {
+					for (int j = 0; j < MAX_COLUMNS; j++) {
+						theGrid[i][j].setColor(rd);
+					}
+				}
+				repaint();
+			}
+		});
+		green.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < MAX_ROWS; i++) {
+					for (int j = 0; j < MAX_COLUMNS; j++) {
+						theGrid[i][j].setColor(grn);
+					}
+				}
+				repaint();
+			}
+		});
+		black.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < MAX_ROWS; i++) {
+					for (int j = 0; j < MAX_COLUMNS; j++) {
+						theGrid[i][j].setColor(blck);
+					}
+				}
+				repaint();
+			}
+		});
+		in.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("in");
+				repaint();
+			}
+		});		
+		out.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("out");
+				repaint();
+			}
+		});
+		
 		
 			
 		
@@ -271,15 +335,13 @@ public class CellWorld extends JPanel implements ActionListener {
 		for (int i = 0; i < MAX_ROWS; i++) {
 			for (int j = 0; j < MAX_COLUMNS; j++) {
 				theGrid[i][j].drawSquare(g);// draw grid in graphic panel
-
-				/* checks for living cells */
-				if (cell[i][j].isAlive()) {
-					theGrid[i][j].drawGreen(g);
+				if (cell[i][j].isAlive()) { // paint if cell is alive
+					theGrid[i][j].findChosenColor(g);
 				}
 			}
 		}
 	}
-
+	
 	/**
 	 * Handles the action of pressing the buttons
 	 * in the control panel

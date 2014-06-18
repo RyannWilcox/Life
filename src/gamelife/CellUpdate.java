@@ -199,6 +199,15 @@ public class CellUpdate {
 		return c;
 	}
 	
+	/**
+	 * This will create a new set of cells.
+	 * A cleared group of cells means they are
+	 * all set as "dead"
+	 * @param c
+	 * @param rows
+	 * @param cols
+	 * @return a cleared group of cells
+	 */
 	public Cell[][] clearCells(Cell c[][],int rows, int cols){
 		for(int i = 0; i < rows;i++){
 			for(int j = 0; j < cols;j++){

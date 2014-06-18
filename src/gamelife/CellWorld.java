@@ -33,6 +33,9 @@ public class CellWorld extends JPanel implements ActionListener {
 	private JMenuBar menu = new JMenuBar();
 	
 	private boolean running = true;
+	private boolean normZoom = true;
+	private boolean inZoom = false;
+	private boolean outZoom = false;
 	private int genCount = 1;
 	private int newRow = 0; 
 	private int newCol = 0;
@@ -68,11 +71,24 @@ public class CellWorld extends JPanel implements ActionListener {
 				
 				//Make clicked cell alive
 				if(count == 1){
-					newRow = e.getX() / (1000/100);
-					newCol = e.getY() / (1000/100);
-					cell[newRow][newCol].makeAlive();
+					/* Will find the correct
+					 * box to make alive 
+					 */
+					if(normZoom){
+						newRow = e.getX() / (1000/100);
+						newCol = e.getY() / (1000/100);
+					}
+					if(inZoom){
+						newRow = e.getX() / (1500/100);
+						newCol = e.getY() / (1500/100);
+					}
+					if(outZoom){
+						newRow = e.getX() / (500/100);
+						newCol = e.getY() / (500/100);
+						
+					}
 					//System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
-					// For testing purposes...
+					cell[newRow][newCol].makeAlive();
 					repaint();
 				}
 				//Make clicked cell dead
@@ -267,6 +283,9 @@ public class CellWorld extends JPanel implements ActionListener {
 			repaint();
 		});
 		
+		/* Makes all the squares larger
+		 * This zooms in the grid
+		 */
 		in.addActionListener(event ->{
 			int newBorderNums = 13;
 			int heightwidth = 15;
@@ -279,9 +298,17 @@ public class CellWorld extends JPanel implements ActionListener {
 					theGrid[i][j].setSqaureWidth(heightwidth);
 				}
 			}
+			normZoom = false;
+			inZoom = true;
+			outZoom = false;
 			repaint();
 		
 		});
+		
+		/*
+		 * Makes all the squares smaller
+		 * This zooms out the grid
+		 */
 		out.addActionListener(event ->{
 			int newBorderNums = 4;
 			int heightwidth = 5;
@@ -294,8 +321,15 @@ public class CellWorld extends JPanel implements ActionListener {
 					theGrid[i][j].setSqaureWidth(heightwidth);
 				}
 			}
+			normZoom = false;
+			inZoom = false;
+			outZoom = true;
 			repaint();
 		});
+		/*
+		 * This will return the grid to
+		 *  normal starting size.
+		 */
 		norm.addActionListener(event ->{
 			int newBorderNums = 8;
 			int heightwidth = 10;
@@ -308,6 +342,9 @@ public class CellWorld extends JPanel implements ActionListener {
 					theGrid[i][j].setSqaureWidth(heightwidth);
 				}
 			}
+			normZoom = true;
+			inZoom = false;
+			outZoom = false;
 			repaint();
 		});
 	}

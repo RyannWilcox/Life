@@ -1,6 +1,6 @@
 package gamelife;
 
-import gamelife.GridSquare.colors;
+import gamelife.GridSquare.colors; 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -43,6 +43,7 @@ public class CellWorld extends JPanel implements ActionListener {
 	private colors grn = colors.GREEN;
 	private colors rd = colors.RED;
 	private colors blck = colors.BLACK;
+	
 	public CellWorld(String title, int width, int height) {
 		super();
 		setDoubleBuffered(true);
@@ -164,6 +165,8 @@ public class CellWorld extends JPanel implements ActionListener {
 		menu.add(speeds);
 		menu.add(colors);
 		menu.add(zoom);
+		
+		//adds the different MenuItems to the JMenu 
 		choices.add(gliderGun);choices.add(pulsar);choices.add(Pentomino);
 		choices.add(spider);choices.add(custom);
 		speeds.add(fast); speeds.add(med); speeds.add(slow);
@@ -175,153 +178,100 @@ public class CellWorld extends JPanel implements ActionListener {
 		 * Clears the cells and then prints the glider gun
 		 *  pattern to the grid.
 		 */
-		gliderGun.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
-				cell = updateCells.createGliderGun(cell);
-				genCount = 1;
-				String genStr= Integer.toString(genCount);
-				/*update JLabel*/
-				generation.setText("Gen: "+genStr);
-				repaint();
-			}
+		gliderGun.addActionListener(event -> {
+			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+			cell = updateCells.createGliderGun(cell);
+			genCount = 1;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
+			repaint();
 		});
 		
 		/* Clears the grid of all live cells. Then
 		 * creates the formation pulsar and paints the
 		 * grid with those cells.
 		 */
-		pulsar.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
-				cell = updateCells.createPulsar(cell);
-				genCount = 1;
-				String genStr= Integer.toString(genCount);
-				/*update JLabel*/
-				generation.setText("Gen: "+genStr);
-				repaint();
-			}
+		pulsar.addActionListener(event -> {
+			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+			cell = updateCells.createPulsar(cell);
+			genCount = 1;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
+			repaint();
 		});
-		
-		
 		/* Clears the grid of all live cells then
 		 * creates the formation R-Pentomino and
 		 * updates the grid    	
 		 */
-		Pentomino.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e){
-				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
-				cell = updateCells.createRPentomino(cell);
-				genCount = 1;
-				String genStr= Integer.toString(genCount);
-				/*update JLabel*/
-				generation.setText("Gen: "+genStr);
-				repaint();
-			}
+		Pentomino.addActionListener(event -> {
+			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+			cell = updateCells.createRPentomino(cell);
+			genCount = 1;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
+			repaint();
 		});
-		
-		spider.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
-				cell = updateCells.createSpider(cell);
-				genCount = 1;
-				String genStr= Integer.toString(genCount);
-				/*update JLabel*/
-				generation.setText("Gen: "+genStr);
-				repaint();
-			}
+		spider.addActionListener(event -> {
+			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+			cell = updateCells.createSpider(cell);
+			genCount = 1;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
+			repaint();
 		});
-		
-		custom.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
-				cell = updateCells.createCustom(cell);
-				genCount = 1;
-				String genStr= Integer.toString(genCount);
-				/*update JLabel*/
-				generation.setText("Gen: "+genStr);
-				repaint();
-			}	
+		custom.addActionListener(event -> {
+			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
+			cell = updateCells.createCustom(cell);
+			genCount = 1;
+			String genStr= Integer.toString(genCount);
+			/*update JLabel*/
+			generation.setText("Gen: "+genStr);
+			repaint();
 		});
 		
 		/*CHANGES THE SPEED OF THE THREAD!!!*/
-		med.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				speed = 120;
-			}
-		});
-		fast.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				speed = 70;
-			}
-		});
-		slow.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				speed = 180;
-			}
-		});
+		med.addActionListener(event -> speed = 120);
+		fast.addActionListener(event -> speed = 70);
+		slow.addActionListener(event -> speed = 180);
+
 		/*CHANGES THE COLOR OF THE CELLS!!!*/
-		red.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		red.addActionListener(event ->{
 				for (int i = 0; i < MAX_ROWS; i++) {
 					for (int j = 0; j < MAX_COLUMNS; j++) {
 						theGrid[i][j].setColor(rd);
 					}
 				}
 				repaint();
-			}
 		});
-		green.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < MAX_ROWS; i++) {
-					for (int j = 0; j < MAX_COLUMNS; j++) {
-						theGrid[i][j].setColor(grn);
-					}
+		green.addActionListener(event ->{
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j].setColor(grn);
 				}
-				repaint();
 			}
+			repaint();
 		});
-		black.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < MAX_ROWS; i++) {
-					for (int j = 0; j < MAX_COLUMNS; j++) {
-						theGrid[i][j].setColor(blck);
-					}
+		black.addActionListener(event ->{
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j].setColor(blck);
 				}
-				repaint();
 			}
+			repaint();
 		});
-		in.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("in");
-				repaint();
-			}
+		
+		in.addActionListener(event ->{
+			System.out.println("in");
+			repaint();
+		});
+		out.addActionListener(event ->{
+			System.out.println("out");
+			repaint();
 		});		
-		out.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("out");
-				repaint();
-			}
-		});
-		
-		
-			
-		
 	}
 
 	/**
@@ -349,9 +299,9 @@ public class CellWorld extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button[0]) {
-			System.out.println("Start thread!");
 		    running = true;
-		    //Begin updating the grid
+		    // Begin updating the grid
+		    // A new Thread is created...
 		    Thread updateThread = new Thread(updates);
 			updateThread.start();
 		}
@@ -365,10 +315,16 @@ public class CellWorld extends JPanel implements ActionListener {
 
 		}
 		if (e.getSource() == button[2]) {
-			//Will stop the thread
+			
+			/* Will cause the thread to exit
+			 * its loop ending the infinite
+			 * iteration of the cells
+			 */
 				running = false;
 		}
 		if(e.getSource() == button[3]){
+			
+			// Make all cells dead on the grid
 			cell = updateCells.clearCells(cell, MAX_ROWS, MAX_COLUMNS);
 			genCount = 1;
 			running = false;
@@ -380,13 +336,13 @@ public class CellWorld extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Nested Thread class This is for a continous update of the cells instead
+	 * inner Thread class This is for a continous update of the cells instead
 	 * of constantly pushing the Step button
 	 * 
 	 * @author ryanwilcox
 	 * 
 	 */
-	public class Updater implements Runnable {
+	private class Updater implements Runnable {
 		@Override
 		public void run() {
 			while (running) {

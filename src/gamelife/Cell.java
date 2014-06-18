@@ -1,5 +1,6 @@
 package gamelife;
 
+
 public class Cell implements CellState{
 	private boolean state;
 	

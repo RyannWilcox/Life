@@ -71,7 +71,7 @@ public class CellWorld extends JPanel implements ActionListener {
 					newRow = e.getX() / (1000/100);
 					newCol = e.getY() / (1000/100);
 					cell[newRow][newCol].makeAlive();
-					System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
+					//System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 					// For testing purposes...
 					repaint();
 				}
@@ -158,8 +158,11 @@ public class CellWorld extends JPanel implements ActionListener {
 		colorGroup.add(black);colorGroup.add(red);colorGroup.add(green);
 		
 		/*Zoom!*/
+		ButtonGroup zoomGroup = new ButtonGroup();
 		JRadioButtonMenuItem in = new JRadioButtonMenuItem("In");
 		JRadioButtonMenuItem out = new JRadioButtonMenuItem("Out");
+		JRadioButtonMenuItem norm = new JRadioButtonMenuItem("Normal");
+		zoomGroup.add(in);zoomGroup.add(out);zoomGroup.add(norm);
 		
 		menu.add(choices);
 		menu.add(speeds);
@@ -171,7 +174,7 @@ public class CellWorld extends JPanel implements ActionListener {
 		choices.add(spider);choices.add(custom);
 		speeds.add(fast); speeds.add(med); speeds.add(slow);
 		colors.add(green); colors.add(red); colors.add(black);
-		zoom.add(in); zoom.add(out);
+		zoom.add(in); zoom.add(out); zoom.add(norm);
 		
 		
 		/*
@@ -240,11 +243,11 @@ public class CellWorld extends JPanel implements ActionListener {
 
 		/*CHANGES THE COLOR OF THE CELLS!!!*/
 		red.addActionListener(event ->{
-				for (int i = 0; i < MAX_ROWS; i++) {
-					for (int j = 0; j < MAX_COLUMNS; j++) {
-						theGrid[i][j].setColor(rd);
-					}
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j].setColor(rd);
 				}
+			}
 				repaint();
 		});
 		green.addActionListener(event ->{
@@ -265,16 +268,52 @@ public class CellWorld extends JPanel implements ActionListener {
 		});
 		
 		in.addActionListener(event ->{
-			System.out.println("in");
+			int newBorderNums = 13;
+			int heightwidth = 15;
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j] = new GridSquare(i * 15, j * 15, i, j, theGrid[i][j].getColor());
+					theGrid[i][j].setInnerHeight(newBorderNums);
+					theGrid[i][j].setInnerWidth(newBorderNums);
+					theGrid[i][j].setSquareHeight(heightwidth);
+					theGrid[i][j].setSqaureWidth(heightwidth);
+				}
+			}
 			repaint();
+		
 		});
 		out.addActionListener(event ->{
-			System.out.println("out");
+			int newBorderNums = 4;
+			int heightwidth = 5;
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j] = new GridSquare(i * 5, j * 5, i, j, theGrid[i][j].getColor());
+					theGrid[i][j].setInnerHeight(newBorderNums);
+					theGrid[i][j].setInnerWidth(newBorderNums);
+					theGrid[i][j].setSquareHeight(heightwidth);
+					theGrid[i][j].setSqaureWidth(heightwidth);
+				}
+			}
 			repaint();
-		});		
+		});
+		norm.addActionListener(event ->{
+			int newBorderNums = 8;
+			int heightwidth = 10;
+			for (int i = 0; i < MAX_ROWS; i++) {
+				for (int j = 0; j < MAX_COLUMNS; j++) {
+					theGrid[i][j] = new GridSquare(i * 10, j * 10, i, j, theGrid[i][j].getColor());
+					theGrid[i][j].setInnerHeight(newBorderNums);
+					theGrid[i][j].setInnerWidth(newBorderNums);
+					theGrid[i][j].setSquareHeight(heightwidth);
+					theGrid[i][j].setSqaureWidth(heightwidth);
+				}
+			}
+			repaint();
+		});
 	}
 
 	/**
+	 * Simple paint component
 	 * Paints the grid with cell updates
 	 */
 	public void paintComponent(Graphics g) {
@@ -304,6 +343,8 @@ public class CellWorld extends JPanel implements ActionListener {
 		    // A new Thread is created...
 		    Thread updateThread = new Thread(updates);
 			updateThread.start();
+		
+
 		}
 		if (e.getSource() == button[1]) {
 			cell = updateCells.updateSquares(cell, MAX_ROWS, MAX_COLUMNS);

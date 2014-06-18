@@ -8,8 +8,8 @@ import java.awt.Graphics;
  */
 public class GridSquare {
 
-	private final int SQUARE_HEIGHT = 10;
-	private final int SQUARE_WIDTH = 10;
+	private  int squareHeight = 10;
+	private  int squareWidth = 10;
 	private int rowNumber;
 	private int columnNumber;
 	private int x;
@@ -42,7 +42,7 @@ public class GridSquare {
 	 */
 	public void drawSquare(Graphics g){
 		g.setColor(Color.GRAY);
-		g.drawRect(x,y,SQUARE_WIDTH,SQUARE_HEIGHT);
+		g.drawRect(x,y,squareWidth,squareHeight);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class GridSquare {
 	 */
 	public void drawGreen(Graphics g){
 		g.setColor(Color.GREEN);
-		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		g.fillRect(x,y, squareWidth, squareHeight);
 		
 		// Gives it a black border!
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
+		g.drawRect(x, y, innerWidth, innerHeight);
 	} 
 	
 	/**
@@ -64,11 +64,11 @@ public class GridSquare {
 	 */
 	public void drawRed(Graphics g){
 		g.setColor(Color.RED);
-		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		g.fillRect(x,y, squareWidth, squareHeight);
 		
 		// Gives it a black border!
 		g.setColor(Color.BLACK);
-		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
+		g.drawRect(x, y, innerWidth, innerHeight);
 	}
 	
 	/**
@@ -77,11 +77,11 @@ public class GridSquare {
 	 */
 	public void drawBlack(Graphics g){
 		g.setColor(Color.BLACK);
-		g.fillRect(x,y, SQUARE_WIDTH, SQUARE_HEIGHT);
+		g.fillRect(x,y, squareWidth, squareHeight);
 		
 		// Gives it a gray border!
 		g.setColor(Color.GRAY);
-		g.drawRect(x, y, getInnerWidth(), getInnerHeight());
+		g.drawRect(x, y, innerWidth, innerHeight);
 	} 
 
 	/**
@@ -155,5 +155,37 @@ public class GridSquare {
 	 */
 	public int columnNumber(){
 		return columnNumber;
+	}
+	
+	//Getters and Setters for setting
+	//the size of the the squares
+	public int getTempX(){
+		return x;
+	}
+	public void setTempX(int newX){
+		x = newX;
+	}
+	public int getTempY(){
+		return y;
+	}
+	public void setTempY(int newY){
+		y = newY;
+	}
+	
+	
+	public int getSquareHeight(){
+		return squareHeight;
+	}
+	
+	public void setSquareHeight(int h){
+		squareHeight = h;
+	}
+	
+	public int getSquareWidth(){
+		return squareWidth;
+	}
+	
+	public void setSqaureWidth(int w){
+		squareWidth = w;
 	}
 }

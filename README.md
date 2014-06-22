@@ -5,12 +5,14 @@ version of Conway's Game of Life
 
 It is a work in progress...</br>
 
+v. 4.0:
+I'm re-working the way classes are set up.
+
 v. 3.2:
 User can zoom in and out when viewing the game.  
 
 v. 3.1:
 You can now select between colors for live cells.  Now adding zoom functionality
-
 
 v. 3.0:
 You can now Pick different patterns and change the speed of generation iterations.  Colors coming soon....

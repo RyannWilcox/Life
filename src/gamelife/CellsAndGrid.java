@@ -12,10 +12,9 @@ import gamelife.GridSquare.colors;
 public class CellsAndGrid implements RowColumnBounds {
 	private Cell cells[][] = new Cell[100][100];
 	private GridSquare grid[][] = new GridSquare[100][100];
+	public enum zooms{IN,OUT,NORMAL};
+	private zooms choice;
 	
-	//zoom variations..
-	private boolean zoomed = false;
-	private boolean normZoom = true;
 	//For checking the bounds of the grid
 	private final int MAX = 100;
 	private final int MIN = 0;
@@ -25,6 +24,7 @@ public class CellsAndGrid implements RowColumnBounds {
 	 * the grid and the cell arrays
 	 */
 	public CellsAndGrid(){
+		choice = zooms.NORMAL;
 		for (int i = 0; i < MAX_ROWS; i++) {
 			for (int j = 0; j < MAX_COLUMNS; j++) {
 				grid[i][j] = new GridSquare(i * 10, j * 10, i, j, colors.GREEN);
@@ -175,33 +175,30 @@ public class CellsAndGrid implements RowColumnBounds {
 	 * to the normal size.  
 	 * @param choice between 1 and 3
 	 */
-	public void zoomGrid(int choice){
+	public void zoomGrid(zooms z){
 		int newBorderNums = 8;
 		int heightwidth = 10;
 		int newValue = 10;
-		
-		if(choice == 1){
-			setZoomed(true);
-			setNormZoom(false);
+		switch(z){
+		case IN:
+			setChoice(choice);
 			newBorderNums = 13;
 			heightwidth = 15;
 			newValue = 15;
-		}
-		if(choice == 2){
-			setZoomed(false);
-			setNormZoom(false);
-			newBorderNums = 4;
-			heightwidth = 5;
-			newValue = 5;
-		}
-		if(choice == 3){
-			setZoomed(false);
-			setNormZoom(true);
+			break;
+		case NORMAL:
+			setChoice(zooms.NORMAL);
 			newBorderNums = 8;
 			heightwidth= 10;
 			newValue= 10;
+			break;
+		case OUT:
+			setChoice(zooms.OUT);
+			newBorderNums = 4;
+			heightwidth = 5;
+			newValue = 5;
+			break;
 		}
-		
 		for (int i = 0; i < MAX_ROWS; i++) {
 			for (int j = 0; j < MAX_COLUMNS; j++) {
 				grid[i][j] = new GridSquare(i * newValue, j * newValue, i, j, grid[i][j].getColor());
@@ -311,6 +308,7 @@ public class CellsAndGrid implements RowColumnBounds {
 		cells[37][1].makeAlive();cells[38][2].makeAlive();cells[38][3].makeAlive();
 		cells[37][3].makeAlive();cells[36][3].makeAlive();
 	}
+	
 	public void createCustom(){
 		cells[52][25].makeAlive();cells[54][25].makeAlive();cells[53][25].makeAlive();
 		cells[55][25].makeAlive();cells[56][25].makeAlive();cells[57][25].makeAlive();
@@ -322,30 +320,35 @@ public class CellsAndGrid implements RowColumnBounds {
 		cells[56][30].makeAlive();cells[57][29].makeAlive();
 	}
 
+	/**
+	 * Max bounds of the grid
+	 * @return the max bounds
+	 */
 	public int getMax(){
 		return MAX;
 	}
 	
+	/**
+	 * Min bounds of the grid
+	 * @return the min bounds
+	 */
 	public int getMin(){
 		return MIN;
 	}
 	
-	
-	
-	
-	public boolean getZoom(){
-		return zoomed;
-	}
-	public void setZoomed(boolean z){
-		zoomed = z;
+	/**
+	 * The choice of zoom
+	 * @return either in,out or normal
+	 */
+	public zooms getChoice(){
+		return choice;
 	}
 	
-	public boolean getNormZoom(){
-		return normZoom;
+	/**
+	 * Set the choice of zoom
+	 * @param c the choice
+	 */
+	public void setChoice(zooms c){
+		choice = c;
 	}
-	
-	public void setNormZoom(boolean z){
-		normZoom = z;
-	}
-	
 }

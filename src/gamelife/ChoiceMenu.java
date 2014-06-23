@@ -1,5 +1,6 @@
 package gamelife;
 
+import gamelife.CellsAndGrid.zooms;
 import gamelife.GridSquare.colors;
 
 import javax.swing.ButtonGroup;
@@ -15,6 +16,9 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 	private colors grn = colors.GREEN;
 	private colors rd = colors.RED;
 	private colors blck = colors.BLACK;
+	private zooms zIn = zooms.IN;
+	private zooms zOut = zooms.OUT;
+	private zooms zNorm = zooms.NORMAL;
 	private CellsAndGrid cellAndGridSquare;
 	
 	public ChoiceMenu(GridPanel aGrid,ControlPanel aPanel,CellsAndGrid data){
@@ -118,9 +122,9 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		});
 		
 		/*CHANGES THE SPEED OF THE THREAD!!!*/
-		med.addActionListener(event -> cPanel.setSpeed(120));
-		fast.addActionListener(event -> cPanel.setSpeed(70));
-		slow.addActionListener(event -> cPanel.setSpeed(180));
+		med.addActionListener(event -> cPanel.getUpdater().setSpeed(120));
+		fast.addActionListener(event -> cPanel.getUpdater().setSpeed(70));
+		slow.addActionListener(event -> cPanel.getUpdater().setSpeed(180));
 
 		/*CHANGES THE COLOR OF THE CELLS!!!*/
 		red.addActionListener(event ->{
@@ -140,8 +144,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 * This zooms in the grid
 		 */
 		in.addActionListener(event ->{
-			int zoomedIn = 1;
-			cellAndGridSquare.zoomGrid(zoomedIn);
+			cellAndGridSquare.zoomGrid(zIn);
 			cellGrid.repaint();
 		});
 		
@@ -150,8 +153,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 * This zooms out the grid
 		 */
 		out.addActionListener(event ->{
-			int zoomedOut = 2;
-			cellAndGridSquare.zoomGrid(zoomedOut);
+			cellAndGridSquare.zoomGrid(zOut);
 			cellGrid.repaint();
 		});
 		/*
@@ -159,8 +161,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 *  normal starting size.
 		 */
 		norm.addActionListener(event ->{
-			int zoomedNormal = 3;
-			cellAndGridSquare.zoomGrid(zoomedNormal);
+			cellAndGridSquare.zoomGrid(zNorm);
 			cellGrid.repaint();
 		});
 	}

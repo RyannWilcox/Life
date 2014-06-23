@@ -1,7 +1,7 @@
 package gamelife;
 
 
-public class Cell implements CellState{
+public class Cell{
 	private boolean state;
 	
 	/**

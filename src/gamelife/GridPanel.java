@@ -3,7 +3,6 @@ package gamelife;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JPanel;
 
 public class GridPanel extends JPanel{
@@ -24,48 +23,33 @@ public class GridPanel extends JPanel{
 					public void mouseClicked(MouseEvent e) {
 						int count = e.getClickCount();
 						
+						switch(cellAndGridSquare.getChoice()){
+						case IN:
+							newRow = e.getX() / (1500/100);
+							newCol = e.getY() / (1500/100);
+							break;
+						case NORMAL:
+							newRow = e.getX() / (1000/100);
+							newCol = e.getY() / (1000/100);
+							break;
+						case OUT:
+							newRow = e.getX() / (500/100);
+							newCol = e.getY() / (500/100);
+							break;
+						default:
+							break;
+						}
 						//Make clicked cell alive
 						if(count == 1){
-							/* Will find the correct
-							 * box to make alive 
-							 */
-							if(cellAndGridSquare.getNormZoom()){
-								newRow = e.getX() / (1000/100);
-								newCol = e.getY() / (1000/100);
-							}
-							if(cellAndGridSquare.getZoom()){
-								newRow = e.getX() / (1500/100);
-								newCol = e.getY() / (1500/100);
-							}
-							if(!cellAndGridSquare.getZoom()){
-								newRow = e.getX() / (500/100);
-								newCol = e.getY() / (500/100);
-								
-							}
 							//System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 							cellAndGridSquare.setCellAlive(newRow, newCol);
-							repaint();
 						}
 						//Make clicked cell dead
 						else if(count == 2){
-							if(cellAndGridSquare.getNormZoom()){
-								newRow = e.getX() / (1000/100);
-								newCol = e.getY() / (1000/100);
-							}
-							if(cellAndGridSquare.getZoom()){
-								newRow = e.getX() / (1500/100);
-								newCol = e.getY() / (1500/100);
-							}
-							if(!cellAndGridSquare.getZoom()){
-								newRow = e.getX() / (500/100);
-								newCol = e.getY() / (500/100);
-								
-							}				
 							// System.out.println("Cell dies at: ("+ newRow + ","+newCol+")");
 							cellAndGridSquare.setCellDead(newRow,newCol);
-							repaint();
-							
 						}
+						repaint();
 					}
 					@Override
 					public void mousePressed(MouseEvent e) {}

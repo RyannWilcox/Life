@@ -15,16 +15,15 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 	private static final String[] BUTTON_STR = { "Go", "Step", "Stop","Clear","Quit" };
 	private JLabel generation = new JLabel("Gen: 1");
 	private boolean running = true;
-	private Updater updates = new Updater();
+	private Updater updates;
 	private GridPanel cellGrid;
 	private int genCount = 1;
-	private int speed = 120;
 	private CellsAndGrid cellAndGridSquare;
 
 	public ControlPanel(GridPanel aGrid, CellsAndGrid data){
 		cellGrid = aGrid;
 		cellAndGridSquare = data;
-		
+		updates = new Updater(running,cellAndGridSquare,cellGrid,this);
 		setLayout(new GridLayout(8,1));
 		button = new JButton[BUTTON_STR.length];
 		for (int i = 0; i < BUTTON_STR.length; i++) {
@@ -39,24 +38,20 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button[0]) {
-		    running = true;
+		    updates.startRunning();
 		    // Begin updating the grid
 		    // A new Thread is created...
 		    Thread updateThread = new Thread(updates);
 			updateThread.start();
-		
-
 		}
 		if (e.getSource() == button[1]) {
 			cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
 			updateGenLabel();
 			cellGrid.repaint();
-			
-
 		}
 		if (e.getSource() == button[2]) {
 			/* Will cause the thread to exit */
-				running = false;
+			updates.stopRunning();
 		}
 		if(e.getSource() == button[3]){
 			// Make all cells dead on the grid
@@ -68,7 +63,6 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 		if (e.getSource() == button[4]) {
 			System.exit(1);
 		}
-		
 	}
 	
 	/**
@@ -87,7 +81,6 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 		genCount = gc;
 	}
 
-	
 	/**
 	 * Gets the label responsible
 	 * for showing the generation
@@ -107,39 +100,11 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 		generation.setText("Gen: "+genStr);
 	}
 	
-	public int getSpeed(){
-		return speed;
-	}
-	public void setSpeed(int newSpeed){
-		speed = newSpeed;
-	}
-	
 	/**
-	 * inner Thread class This is for a continous update of the cells instead
-	 * of constantly pushing the Step button
-	 * 
-	 * @author ryanwilcox
-	 * 
+	 * Gets the updater object
+	 * @return the updater object
 	 */
-	private class Updater implements Runnable {
-		@Override
-		public void run() {
-			while (running) {
-				// While the stop button/quit button is not pushed
-				// the thread will continue to loop
-				cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
-				/*update JLabel*/
-				updateGenLabel();
-				cellGrid.repaint();
-				try {
-					Thread.sleep(speed);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		}
-
+	public Updater getUpdater(){
+		return updates;
 	}
 }

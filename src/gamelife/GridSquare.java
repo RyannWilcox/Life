@@ -10,10 +10,10 @@ public class GridSquare {
 
 	private  int squareHeight = 10;
 	private  int squareWidth = 10;
-	private int rowNumber;
-	private int columnNumber;
-	private int x;
-	private int y;
+	private int rowNumber = 0;
+	private int columnNumber = 0;
+	private int x = 0;
+	private int y = 0;
 	private int innerWidth = 8;
 	private int innerHeight = 8;
 	
@@ -67,7 +67,7 @@ public class GridSquare {
 		g.fillRect(x,y, squareWidth, squareHeight);
 		
 		// Gives it a black border!
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.drawRect(x, y, innerWidth, innerHeight);
 	}
 	
@@ -156,22 +156,6 @@ public class GridSquare {
 	public int columnNumber(){
 		return columnNumber;
 	}
-	
-	//Getters and Setters for setting
-	//the size of the the squares
-	public int getTempX(){
-		return x;
-	}
-	public void setTempX(int newX){
-		x = newX;
-	}
-	public int getTempY(){
-		return y;
-	}
-	public void setTempY(int newY){
-		y = newY;
-	}
-	
 	
 	public int getSquareHeight(){
 		return squareHeight;

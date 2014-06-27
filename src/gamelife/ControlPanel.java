@@ -14,7 +14,6 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 	private JButton[] button;
 	private static final String[] BUTTON_STR = { "Go", "Step", "Stop","Clear","Quit" };
 	private JLabel generation = new JLabel("Gen: 1");
-	private boolean running = true;
 	private Updater updates;
 	private GridPanel cellGrid;
 	private int genCount = 1;
@@ -23,7 +22,7 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 	public ControlPanel(GridPanel aGrid, CellsAndGrid data){
 		cellGrid = aGrid;
 		cellAndGridSquare = data;
-		updates = new Updater(running,cellAndGridSquare,cellGrid,this);
+		updates = new Updater(true,cellAndGridSquare,cellGrid,this);
 		setLayout(new GridLayout(8,1));
 		button = new JButton[BUTTON_STR.length];
 		for (int i = 0; i < BUTTON_STR.length; i++) {
@@ -57,7 +56,7 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 			// Make all cells dead on the grid
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
 			setGenCount(1);
-			running = false;
+			updates.stopRunning();
 			cellGrid.repaint();
 		}
 		if (e.getSource() == button[4]) {

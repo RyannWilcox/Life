@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import gamelife.GridSquare.colors;
 /**
  * Class that will take care of all
- * changes done to the Grid and      the Cells
- * @author ryanwilcox
+ * changes done to the Grid and the Cells
+ * @author RyanWilcox
  *
  */
 public class CellsAndGrid implements RowColumnBounds {
@@ -14,6 +14,7 @@ public class CellsAndGrid implements RowColumnBounds {
 	private GridSquare grid[][] = new GridSquare[100][100];
 	public enum zooms{IN,OUT,NORMAL};
 	private zooms choice;
+	private boolean useHighLife = false;
 	
 	//For checking the bounds of the grid
 	private final int MAX = 100;
@@ -67,7 +68,7 @@ public class CellsAndGrid implements RowColumnBounds {
 		
 		/* 
 		 * Populates the next generation with
-		 * new empty cells
+		 * new empty(dead) cells
 		 */
 		for(int i = 0; i < rows;i++){ 
 			for(int j = 0; j < cols;j++){
@@ -92,6 +93,15 @@ public class CellsAndGrid implements RowColumnBounds {
 				// less than 2 or greater than 3. the cell dies!
 				if(cells[i][j].isAlive() && (nbrCount < 2 || nbrCount > 3)){
 					nextGen[i][j].makeDead();
+				}
+				
+				/* Adds an extra rule to the game
+				 * Its called High Life 
+				 */
+				if(useHighLife){
+					if(!cells[i][j].isAlive() && nbrCount == 6){
+						nextGen[i][j].makeAlive();
+					}
 				}
 			}
 		}
@@ -211,7 +221,7 @@ public class CellsAndGrid implements RowColumnBounds {
 	}
 	
 	/**
-	 * Makes a cell alive depending
+	 * Makes a cell alive based
 	 * on the location of in the 
 	 * 2d array
 	 * @param i row
@@ -350,5 +360,13 @@ public class CellsAndGrid implements RowColumnBounds {
 	 */
 	public void setChoice(zooms c){
 		choice = c;
+	}
+	
+	/**
+	 * Adds a rule to the game of life
+	 * @param hl either true or false
+	 */
+	public void setRule(boolean hl){
+		useHighLife = hl;
 	}
 }

@@ -25,6 +25,7 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 		updates = new Updater(true,cellAndGridSquare,cellGrid,this);
 		setLayout(new GridLayout(8,1));
 		button = new JButton[BUTTON_STR.length];
+		
 		for (int i = 0; i < BUTTON_STR.length; i++) {
 			button[i] = new JButton(BUTTON_STR[i]);
 			button[i].addActionListener(this);
@@ -36,6 +37,7 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//creates a thread to cycle through generations
 		if (e.getSource() == button[0]) {
 		    updates.startRunning();
 		    // Begin updating the grid
@@ -43,15 +45,20 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 		    Thread updateThread = new Thread(updates);
 			updateThread.start();
 		}
+		//ALlows you to step through generations
 		if (e.getSource() == button[1]) {
-			cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
+			if(cellAndGridSquare.getSeedRuleStatus()){
+				cellAndGridSquare.seedUpdateCells(MAX_ROWS,MAX_COLUMNS);
+			}else{
+				cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
+			}
 			updateGenLabel();
 			cellGrid.repaint();
 		}
-		if (e.getSource() == button[2]) {
-			/* Will cause the thread to exit */
-			updates.stopRunning();
-		}
+		//stops the automatic generation
+		if (e.getSource() == button[2]) {updates.stopRunning();}
+		
+		//Clears all alive cells from the board
 		if(e.getSource() == button[3]){
 			// Make all cells dead on the grid
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
@@ -59,6 +66,7 @@ public class ControlPanel extends JPanel implements ActionListener,RowColumnBoun
 			updates.stopRunning();
 			cellGrid.repaint();
 		}
+		//Quits the game of life
 		if (e.getSource() == button[4]) {
 			System.exit(1);
 		}

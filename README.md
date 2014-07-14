@@ -17,11 +17,14 @@ If the cell is dead and has exactly 6 neighbors it will become alive
 
 Seed Rule Set:
 1. If a cell is alive, it will die
-2.If a cell is dead, it will come alive only if it has exactly 2 living neighbors
+2. If a cell is dead, it will come alive only if it has exactly 2 living neighbors
 ```
 Many interesting and complex patterns emerge from having the grid follow these simple rules.
 
 ====
+v. 4.1:
+New game of life rule options added.  It is called the Seed Rule set
+
 v. 4.0:
 I'm re-working the way classes are set up.
 

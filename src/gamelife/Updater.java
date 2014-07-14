@@ -19,12 +19,17 @@ public class Updater implements Runnable, RowColumnBounds {
 		while (running) {
 			// While the stop button/quit button is not pushed
 			// the thread will continue to loop
-			cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
+			if(cellAndGridSquare.getSeedRuleStatus()){
+				cellAndGridSquare.seedUpdateCells(MAX_ROWS, MAX_COLUMNS);
+			}
+			else{
+				cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
+			}
 			/*update JLabel*/
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
 			try {
-				Thread.sleep(getSpeed());
+				Thread.sleep(speed);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

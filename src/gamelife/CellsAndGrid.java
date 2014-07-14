@@ -15,6 +15,7 @@ public class CellsAndGrid implements RowColumnBounds {
 	public enum zooms{IN,OUT,NORMAL};
 	private zooms choice;
 	private boolean useHighLife = false;
+	private boolean useSeed = false;
 	
 	//For checking the bounds of the grid
 	private final int MAX = 100;
@@ -58,8 +59,9 @@ public class CellsAndGrid implements RowColumnBounds {
 	 * 1. If the cell has < 2 alive neighbors it dies
 	 * 2. If the cell has 2 or 3 live neighbors it lives
 	 * 3. If the cell has 3 > live neighbors it will die
-	 * 4. If any dead cell has exactly 3 live neighbors it
-	 * will become alive
+	 * 4. If any dead cell has exactly 3 live neighbors it will come alive
+	 * EXTRA RULE: if cell is dead and has exactly 6 neighbors
+	 * it will become alive
 	 */
 	public void updateCells(int rows,int cols){
 		int nbrCount = 0;
@@ -75,7 +77,6 @@ public class CellsAndGrid implements RowColumnBounds {
 				nextGen[i][j] = new Cell();
 			}
 		}
-		
 		for(int i = 0; i < rows;i++){
 			for(int j = 0; j < cols;j++){
 				nbrCount = countNeighbors(i ,j,getMax(),getMin());
@@ -96,7 +97,9 @@ public class CellsAndGrid implements RowColumnBounds {
 				}
 				
 				/* Adds an extra rule to the game
-				 * Its called High Life 
+				 * If cell is dead and has exactly 6 neighbors
+				 * the dead cell will come alive
+				 * Its called 'High Life' 
 				 */
 				if(useHighLife){
 					if(!cells[i][j].isAlive() && nbrCount == 6){
@@ -108,6 +111,43 @@ public class CellsAndGrid implements RowColumnBounds {
 		cells = nextGen;
 	}
 	
+	/**
+	 * Uses a completely different rule set for the game of life
+	 * 1. If a square was on, it will turn off
+	 * 2. If a square was off, it will turn on only if
+	 *  exactly 2 of its neighbors were on 
+	 * @param rows
+	 * @param cols
+	 */
+	public void seedUpdateCells(int rows,int cols){
+		int nbrCount = 0;
+		//This will become the updated Generation seed of cells
+		Cell nextGen[][] = new Cell[rows][cols];
+		
+		/* 
+		 * Populates the next generation with
+		 * new empty(dead) cells
+		 */
+		for(int i = 0; i < rows;i++){ 
+			for(int j = 0; j < cols;j++){
+				nextGen[i][j] = new Cell();
+			}
+		}
+		for(int i = 0; i < rows;i++){
+			for(int j = 0; j < cols;j++){
+				nbrCount = countNeighbors(i ,j,getMax(),getMin());
+				
+				if(!cells[i][j].isAlive() && nbrCount == 2){
+					nextGen[i][j].makeAlive();
+				}
+				
+				if(cells[i][j].isAlive()){
+					nextGen[i][j].makeDead();
+				}
+			}
+		}
+		cells = nextGen;
+	}
 	
 	/**
 	* Will Check the 8 possible neighbors
@@ -151,7 +191,6 @@ public class CellsAndGrid implements RowColumnBounds {
 	 * This will create a new set of cells.
 	 * A cleared group of cells means they are
 	 * all set as "dead"
-	 * @param c
 	 * @param rows
 	 * @param cols
 	 * @return a cleared group of cells
@@ -189,6 +228,7 @@ public class CellsAndGrid implements RowColumnBounds {
 		int newBorderNums = 8;
 		int heightwidth = 10;
 		int newValue = 10;
+		
 		switch(z){
 		case IN:
 			setChoice(choice);
@@ -219,6 +259,7 @@ public class CellsAndGrid implements RowColumnBounds {
 			}
 		}
 	}
+	
 	
 	/**
 	 * Makes a cell alive based
@@ -366,7 +407,32 @@ public class CellsAndGrid implements RowColumnBounds {
 	 * Adds a rule to the game of life
 	 * @param hl either true or false
 	 */
-	public void setRule(boolean hl){
+	public void setHighLifeRule(boolean hl){
+		useSeed = false;
 		useHighLife = hl;
+	}
+	
+	/**
+	 * To decide whether to use the seed rule set
+	 * for the game of life
+	 * @param sr
+	 */
+	public void setSeedRule(boolean sr){
+		useHighLife = false;
+		useSeed = sr;
+	}
+	
+	/*
+	 * Get status of the rule seed rule set
+	 */
+	public boolean getSeedRuleStatus(){
+		return useSeed;
+	}
+	
+	/*
+	 * Get the status of the high life rule set
+	 */
+	public boolean getHighLifeStatus(){
+		return useHighLife;
 	}
 }

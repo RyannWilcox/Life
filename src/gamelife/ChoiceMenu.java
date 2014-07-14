@@ -13,9 +13,13 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 	
 	private GridPanel cellGrid;
 	private ControlPanel cPanel;
+	
+	//Possible choices for colors
 	private colors grn = colors.GREEN;
 	private colors rd = colors.RED;
 	private colors blck = colors.BLACK;
+	
+	//Possible choices for zooms
 	private zooms zIn = zooms.IN;
 	private zooms zOut = zooms.OUT;
 	private zooms zNorm = zooms.NORMAL;
@@ -65,7 +69,8 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		ButtonGroup variationGroup = new ButtonGroup();
 		JRadioButtonMenuItem life = new JRadioButtonMenuItem("Life");
 		JRadioButtonMenuItem highLife = new JRadioButtonMenuItem("High Life");
-		variationGroup.add(life);variationGroup.add(highLife);
+		JRadioButtonMenuItem seed = new JRadioButtonMenuItem("Seed");
+		variationGroup.add(life);variationGroup.add(highLife);variationGroup.add(seed);
 		
 		/*Add to the JMenuBar*/
 		add(choices);
@@ -80,7 +85,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		speeds.add(fast); speeds.add(med); speeds.add(slow);
 		colors.add(green); colors.add(red); colors.add(black);
 		zoom.add(in); zoom.add(out); zoom.add(norm);
-		variations.add(life);variations.add(highLife);
+		variations.add(life);variations.add(highLife);variations.add(seed);
 		
 		
 		/*
@@ -179,11 +184,16 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		/*
 		 * Normal game of life rules
 		 */
-		life.addActionListener(event ->{cellAndGridSquare.setRule(false);});
+		life.addActionListener(event ->{cellAndGridSquare.setHighLifeRule(false);});
 		
 		/*
-		 * Adds one new rules to the game of life
+		 * Adds one new rule to the game of life
 		 */
-		highLife.addActionListener(event ->{cellAndGridSquare.setRule(true);});
+		highLife.addActionListener(event ->{cellAndGridSquare.setHighLifeRule(true);});
+		
+		/*
+		 * Uses special set of rules for game of life
+		 */
+		seed.addActionListener(event ->{cellAndGridSquare.setSeedRule(true);});
 	}
 }

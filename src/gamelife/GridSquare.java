@@ -90,7 +90,7 @@ public class GridSquare {
 	 * @param g
 	 */
 	public void findChosenColor(Graphics g){
-		switch(getColor()){
+		switch(clr){
 		case GREEN:
 			drawGreen(g);
 			break;

@@ -33,7 +33,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		JMenu speeds = new JMenu("Speeds");
 		JMenu colors = new JMenu("Colors");
 		JMenu zoom = new JMenu("Zoom");
-		JMenu variations = new JMenu("Variations");
+		JMenu rules = new JMenu("Rule Sets");
 		
 		/*Patterns*/
 		ButtonGroup patternGroup = new ButtonGroup();
@@ -66,18 +66,18 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		zoomGroup.add(in);zoomGroup.add(out);zoomGroup.add(norm);
 		
 		/*Life rule variations*/
-		ButtonGroup variationGroup = new ButtonGroup();
+		ButtonGroup ruleGroup = new ButtonGroup();
 		JRadioButtonMenuItem life = new JRadioButtonMenuItem("Life");
 		JRadioButtonMenuItem highLife = new JRadioButtonMenuItem("High Life");
 		JRadioButtonMenuItem seed = new JRadioButtonMenuItem("Seed");
-		variationGroup.add(life);variationGroup.add(highLife);variationGroup.add(seed);
+		ruleGroup.add(life);ruleGroup.add(highLife);ruleGroup.add(seed);
 		
 		/*Add to the JMenuBar*/
 		add(choices);
 		add(speeds);
 		add(colors);
 		add(zoom);
-		add(variations);
+		add(rules);
 		
 		//adds the different MenuItems to the JMenu 
 		choices.add(gliderGun);choices.add(pulsar);choices.add(Pentomino);
@@ -85,7 +85,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		speeds.add(fast); speeds.add(med); speeds.add(slow);
 		colors.add(green); colors.add(red); colors.add(black);
 		zoom.add(in); zoom.add(out); zoom.add(norm);
-		variations.add(life);variations.add(highLife);variations.add(seed);
+		rules.add(life);rules.add(highLife);rules.add(seed);
 		
 		
 		/*

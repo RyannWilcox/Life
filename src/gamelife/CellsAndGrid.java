@@ -9,17 +9,13 @@ import gamelife.GridSquare.colors;
  * @author RyanWilcox
  *
  */
-public class CellsAndGrid implements RowColumnBounds {
+public class CellsAndGrid implements RowColumnBounds,MaxMinBounds {
 	private Cell cells[][] = new Cell[100][100];
 	private GridSquare grid[][] = new GridSquare[100][100];
 	public enum zooms{IN,OUT,NORMAL};
 	private zooms choice;
 	private boolean useHighLife = false;
 	private boolean useSeed = false;
-	
-	//For checking the bounds of the grid
-	private final int MAX = 100;
-	private final int MIN = 0;
 	
 	/**
 	 * Constructor will populate
@@ -84,18 +80,15 @@ public class CellsAndGrid implements RowColumnBounds {
 				// it is now alive
 				if((!cells[i][j].isAlive()) && nbrCount == 3){
 					nextGen[i][j].makeAlive();
-				}
-					
+				}	
 				//2 or 3 neighbors.  the cell lives
 				if(cells[i][j].isAlive() &&( nbrCount == 2 || nbrCount == 3)){
 					nextGen[i][j].makeAlive();
-				}
-					
+				}		
 				// less than 2 or greater than 3. the cell dies!
 				if(cells[i][j].isAlive() && (nbrCount < 2 || nbrCount > 3)){
 					nextGen[i][j].makeDead();
-				}
-				
+				}	
 				/* Adds an extra rule to the game
 				 * If cell is dead and has exactly 6 neighbors
 				 * the dead cell will come alive
@@ -227,8 +220,7 @@ public class CellsAndGrid implements RowColumnBounds {
 	public void zoomGrid(zooms z){
 		int newBorderNums = 8;
 		int heightwidth = 10;
-		int newValue = 10;
-		
+		int newValue = 10;		
 		switch(z){
 		case IN:
 			setChoice(choice);

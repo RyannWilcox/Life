@@ -4,7 +4,7 @@ public class Updater implements Runnable, RowColumnBounds {
 	private boolean running = true;
 	private CellsAndGrid cellAndGridSquare;
 	private GridPanel cellGrid;
-	private int speed = 120;
+	private int speed = 120; //Starting speed
 	private ControlPanel cPanel;
 	
 	public Updater(boolean run,CellsAndGrid cellAndGrid,GridPanel gp, ControlPanel cp){

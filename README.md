@@ -23,7 +23,7 @@ Many interesting and complex patterns emerge from having the grid follow these s
 
 ====
 v. 4.1:
-New game of life rule options added.  It is called the Seed Rule set
+New game of life rule options added.  It is called the Seed Rule set. Seed Rule set is selectable through the drop down menu
 
 v. 4.0:
 I'm re-working the way classes are set up.

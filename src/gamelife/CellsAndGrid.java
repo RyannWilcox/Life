@@ -223,19 +223,16 @@ public class CellsAndGrid implements RowColumnBounds,MaxMinBounds {
 		int newValue = 10;		
 		switch(z){
 		case IN:
-			setChoice(choice);
+			setChoice(z);
 			newBorderNums = 13;
 			heightwidth = 15;
 			newValue = 15;
 			break;
 		case NORMAL:
-			setChoice(zooms.NORMAL);
-			newBorderNums = 8;
-			heightwidth= 10;
-			newValue= 10;
+			setChoice(z);
 			break;
 		case OUT:
-			setChoice(zooms.OUT);
+			setChoice(z);
 			newBorderNums = 4;
 			heightwidth = 5;
 			newValue = 5;

@@ -41,7 +41,7 @@ public class GridPanel extends JPanel{
 						}
 						//Make clicked cell alive
 						if(count == 1){
-							//System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
+							System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 							cellAndGridSquare.setCellAlive(newRow, newCol);
 						}
 						//Make clicked cell dead

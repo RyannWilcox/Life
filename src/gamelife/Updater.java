@@ -4,28 +4,27 @@ public class Updater implements Runnable, RowColumnBounds {
 	private boolean running = true;
 	private CellsAndGrid cellAndGridSquare;
 	private GridPanel cellGrid;
-	private int speed = 120; //Starting speed
+	private int speed = 120; // Starting speed
 	private ControlPanel cPanel;
-	
-	public Updater(boolean run,CellsAndGrid cellAndGrid,GridPanel gp, ControlPanel cp){
+
+	public Updater(boolean run, CellsAndGrid cellAndGrid, GridPanel gp, ControlPanel cp) {
 		running = run;
 		cellAndGridSquare = cellAndGrid;
 		cellGrid = gp;
 		cPanel = cp;
 	}
-	
+
 	@Override
 	public void run() {
 		while (running) {
 			// While the stop button/quit button is not pushed
 			// the thread will continue to loop
-			if(cellAndGridSquare.getSeedRuleStatus()){
+			if (cellAndGridSquare.getSeedRuleStatus()) {
 				cellAndGridSquare.seedUpdateCells(MAX_ROWS, MAX_COLUMNS);
-			}
-			else{
+			} else {
 				cellAndGridSquare.updateCells(MAX_ROWS, MAX_COLUMNS);
 			}
-			/*update JLabel*/
+			/* update JLabel */
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
 			try {
@@ -37,33 +36,36 @@ public class Updater implements Runnable, RowColumnBounds {
 		}
 
 	}
-	
+
 	/**
 	 * Time that the thread will sleep
+	 * 
 	 * @return sleep time
 	 */
-	public int getSpeed(){
+	public int getSpeed() {
 		return speed;
 	}
+
 	/**
 	 * Set the time the thread will sleep
+	 * 
 	 * @param s
 	 */
-	public void setSpeed(int s){
+	public void setSpeed(int s) {
 		speed = s;
 	}
+
 	/**
-	 * Will stop the thread by
-	 * exiting the loop
+	 * Will stop the thread by exiting the loop
 	 */
-	public void stopRunning(){
+	public void stopRunning() {
 		running = false;
 	}
+
 	/**
-	 * Will make it possible to start
-	 *  the thread again
+	 * Will make it possible to start the thread again
 	 */
-	public void startRunning(){
+	public void startRunning() {
 		running = true;
 	}
 }

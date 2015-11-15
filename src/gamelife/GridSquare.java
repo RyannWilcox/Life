@@ -1,36 +1,39 @@
 package gamelife;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
 /**
  * Creates the squares on the grid
+ * 
  * @author ryanwilcox
  */
 public class GridSquare {
 
-	private  int squareHeight = 10;
-	private  int squareWidth = 10;
+	private int squareHeight = 10;
+	private int squareWidth = 10;
 	private int rowNumber = 0;
 	private int columnNumber = 0;
 	private int x = 0;
 	private int y = 0;
 	private int innerWidth = 8;
 	private int innerHeight = 8;
-	
-	public enum colors{
+
+	public enum colors {
 		GREEN, RED, BLACK
 	};
+
 	private colors clr;
 
-	
 	/**
 	 * constructor for a square on the grid
+	 * 
 	 * @param tempx
 	 * @param tempy
 	 * @param rowNb
 	 * @param colmNb
 	 */
-	public GridSquare(int tempx, int tempy, int rowNb,int colmNb,colors c){
+	public GridSquare(int tempx, int tempy, int rowNb, int colmNb, colors c) {
 		clr = c;
 		rowNumber = rowNb;
 		columnNumber = colmNb;
@@ -38,61 +41,69 @@ public class GridSquare {
 		y = tempy;
 
 	}
+
 	/**
 	 * draws the square for the grid
+	 * 
 	 * @param g
 	 */
-	public void drawSquare(Graphics g){
+	public void drawSquare(Graphics g) {
 		g.setColor(Color.GRAY);
-		g.drawRect(x,y,squareWidth,squareHeight);
+		g.drawRect(x, y, squareWidth, squareHeight);
 	}
 
 	/**
 	 * draws a green cell that is considered "alive"
-	 * @param g the graphics
+	 * 
+	 * @param g
+	 *            the graphics
 	 */
-	public void drawGreen(Graphics g){
+	public void drawGreen(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.fillRect(x,y, squareWidth, squareHeight);
-		
+		g.fillRect(x, y, squareWidth, squareHeight);
+
 		// Gives it a black border!
 		g.setColor(Color.BLACK);
 		g.drawRect(x, y, innerWidth, innerHeight);
-	} 
-	
+	}
+
 	/**
 	 * draws a red cell that is considered "alive"
-	 * @param g the graphics
+	 * 
+	 * @param g
+	 *            the graphics
 	 */
-	public void drawRed(Graphics g){
+	public void drawRed(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(x,y, squareWidth, squareHeight);
-		
+		g.fillRect(x, y, squareWidth, squareHeight);
+
 		// Gives it a black border!
 		g.setColor(Color.WHITE);
 		g.drawRect(x, y, innerWidth, innerHeight);
 	}
-	
+
 	/**
 	 * draws a black cell that is considered "alive"
-	 * @param g the graphics
+	 * 
+	 * @param g
+	 *            the graphics
 	 */
-	public void drawBlack(Graphics g){
+	public void drawBlack(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(x,y, squareWidth, squareHeight);
-		
+		g.fillRect(x, y, squareWidth, squareHeight);
+
 		// Gives it a gray border!
 		g.setColor(Color.GRAY);
 		g.drawRect(x, y, innerWidth, innerHeight);
-	} 
+	}
 
 	/**
-	 * Finds what color is set for
-	 * the live cell to be painted
+	 * Finds what color is set for the live cell to be painted
+	 * 
 	 * @param g
 	 */
-	public void findChosenColor(Graphics g){
-		switch(clr){
+	public void findChosenColor(Graphics g) {
+		switch (clr) {
 		case GREEN:
 			drawGreen(g);
 			break;
@@ -104,74 +115,74 @@ public class GridSquare {
 			break;
 		}
 	}
+
 	/*
-	 * Getters and setters to set the border
-	 * around the alive cells
+	 * Getters and setters to set the border around the alive cells
 	 */
-	public int getInnerWidth(){
+	public int getInnerWidth() {
 		return innerWidth;
 	}
-	
-	public void setInnerWidth(int w){
+
+	public void setInnerWidth(int w) {
 		innerWidth = w;
 	}
-	
-	public int getInnerHeight(){
+
+	public int getInnerHeight() {
 		return innerHeight;
 	}
-	
-	public void setInnerHeight(int h){
+
+	public void setInnerHeight(int h) {
 		innerHeight = h;
 	}
-	/*Getters and setters to set the border for cells*/
-	
-	
+	/* Getters and setters to set the border for cells */
+
 	/**
-	 *  Find what color the square is going
-	 *  to be painted
+	 * Find what color the square is going to be painted
 	 */
-	public colors getColor(){
+	public colors getColor() {
 		return clr;
 	}
-	
+
 	/**
-	 * Set what color the live
-	 * square will be painted
+	 * Set what color the live square will be painted
+	 * 
 	 * @param color
 	 */
-	public void setColor(colors color){
+	public void setColor(colors color) {
 		clr = color;
 	}
-	
+
 	/**
 	 * gets the row number
+	 * 
 	 * @return the row number of the square
 	 */
 	public int rowNumber() {
 		return rowNumber;
 	}
-	
+
 	/**
-	 *  gets the column number 
+	 * gets the column number
+	 * 
 	 * @return the column number of the square
 	 */
-	public int columnNumber(){
+	public int columnNumber() {
 		return columnNumber;
 	}
-	
-	public int getSquareHeight(){
+
+	public int getSquareHeight() {
 		return squareHeight;
 	}
-	
-	public void setSquareHeight(int h){
+
+	public void setSquareHeight(int h) {
 		squareHeight = h;
 	}
-	
-	public int getSquareWidth(){
+
+	public int getSquareWidth() {
 		return squareWidth;
 	}
-	
-	public void setSquareWidth(int w){
+
+	public void setSquareWidth(int w) {
 		squareWidth = w;
 	}
 }

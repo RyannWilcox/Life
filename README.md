@@ -22,26 +22,5 @@ Seed Rule Set:
 Many interesting and complex patterns emerge from having the grid follow these simple rules.
 
 ====
-v. 4.1:
-New game of life rule options added.  It is called the Seed Rule set. Seed Rule set is selectable through the drop down menu
-
-v. 4.0:
-I'm re-working the way classes are set up.
-
-v. 3.2:
-User can zoom in and out when viewing the game.  
-
-v. 3.1:
-You can now select between colors for live cells.  Now adding zoom functionality
-
-v. 3.0:
-You can now Pick different patterns and change the speed of generation iterations.  Colors coming soon....
-
-
-v. 2.0:
-You can now click to manipulate cell placement.  More functionality coming soon..
-
-
-v. 1.0: 
-This is a working version.  You just can't click to add living cells yet. </br>
+I'm starting to update how some of these classes are put together...
 

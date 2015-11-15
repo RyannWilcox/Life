@@ -12,7 +12,11 @@ import gamelife.GridSquare.colors;
 public class CellsAndGrid implements RowColumnBounds,MaxMinBounds {
 	private Cell cells[][] = new Cell[100][100];
 	private GridSquare grid[][] = new GridSquare[100][100];
-	public enum zooms{IN,OUT,NORMAL};
+	
+	public enum zooms{
+		IN, OUT, NORMAL
+	};
+	
 	private zooms choice;
 	private boolean useHighLife = false;
 	private boolean useSeed = false;
@@ -244,7 +248,7 @@ public class CellsAndGrid implements RowColumnBounds,MaxMinBounds {
 				grid[i][j].setInnerHeight(newBorderNums);
 				grid[i][j].setInnerWidth(newBorderNums);
 				grid[i][j].setSquareHeight(heightwidth);
-				grid[i][j].setSqaureWidth(heightwidth);
+				grid[i][j].setSquareWidth(heightwidth);
 			}
 		}
 	}

@@ -44,13 +44,15 @@ public class GridPanel extends JPanel{
 							System.out.println("Cell comes alive!!! at: ("+ newRow + ","+newCol+")");
 							cellAndGridSquare.setCellAlive(newRow, newCol);
 						}
-						//Make clicked cell dead
+						//Make double-clicked cell dead
 						else if(count == 2){
-							// System.out.println("Cell dies at: ("+ newRow + ","+newCol+")");
+							System.out.println("Cell dies at: ("+ newRow + ","+newCol+")");
 							cellAndGridSquare.setCellDead(newRow,newCol);
 						}
 						repaint();
 					}
+					
+					// These have to stay...
 					@Override
 					public void mousePressed(MouseEvent e) {}
 					@Override

@@ -1,8 +1,5 @@
 package gamelife;
 
-import gamelife.CellsAndGrid.zooms;
-import gamelife.GridSquare.colors;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,18 +10,12 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 	
 	private GridPanel cellGrid;
 	private ControlPanel cPanel;
-	
-	//Possible choices for colors
-	private colors grn = colors.GREEN;
-	private colors rd = colors.RED;
-	private colors blck = colors.BLACK;
-	
-	//Possible choices for zooms
-	private zooms zIn = zooms.IN;
-	private zooms zOut = zooms.OUT;
-	private zooms zNorm = zooms.NORMAL;
 	private CellsAndGrid cellAndGridSquare;
 	
+	
+	/*
+	 * Set up our choice menu for the frame
+	 */
 	public ChoiceMenu(GridPanel aGrid,ControlPanel aPanel,CellsAndGrid data){
 		cellAndGridSquare = data;
 		cellGrid = aGrid;
@@ -144,15 +135,15 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 
 		/*CHANGES THE COLOR OF THE CELLS!!!*/
 		red.addActionListener(event ->{
-			cellAndGridSquare.changeColors(rd);
+			cellAndGridSquare.changeColors(GridSquare.colors.RED);
 			cellGrid.repaint();
 		});
 		green.addActionListener(event ->{
-			cellAndGridSquare.changeColors(grn);
+			cellAndGridSquare.changeColors(GridSquare.colors.GREEN);
 			cellGrid.repaint();
 		});
 		black.addActionListener(event ->{
-			cellAndGridSquare.changeColors(blck);
+			cellAndGridSquare.changeColors(GridSquare.colors.BLACK);
 			cellGrid.repaint();
 		});
 		
@@ -160,7 +151,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 * This zooms in the grid
 		 */
 		in.addActionListener(event ->{
-			cellAndGridSquare.zoomGrid(zIn);
+			cellAndGridSquare.zoomGrid(CellsAndGrid.zooms.IN);
 			cellGrid.repaint();
 		});
 		
@@ -169,7 +160,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 * This zooms out the grid
 		 */
 		out.addActionListener(event ->{
-			cellAndGridSquare.zoomGrid(zOut);
+			cellAndGridSquare.zoomGrid(CellsAndGrid.zooms.OUT);
 			cellGrid.repaint();
 		});
 		/*
@@ -177,7 +168,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds{
 		 *  normal starting size.
 		 */
 		norm.addActionListener(event ->{
-			cellAndGridSquare.zoomGrid(zNorm);
+			cellAndGridSquare.zoomGrid(CellsAndGrid.zooms.NORMAL);
 			cellGrid.repaint();
 		});
 		

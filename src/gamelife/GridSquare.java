@@ -17,7 +17,9 @@ public class GridSquare {
 	private int innerWidth = 8;
 	private int innerHeight = 8;
 	
-	public enum colors{GREEN,RED,BLACK};
+	public enum colors{
+		GREEN, RED, BLACK
+	};
 	private colors clr;
 
 	
@@ -169,7 +171,7 @@ public class GridSquare {
 		return squareWidth;
 	}
 	
-	public void setSqaureWidth(int w){
+	public void setSquareWidth(int w){
 		squareWidth = w;
 	}
 }

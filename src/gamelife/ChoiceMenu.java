@@ -11,6 +11,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
 	private GridPanel cellGrid;
 	private ControlPanel cPanel;
 	private CellsAndGrid cellAndGridSquare;
+	private SpecialFormation specialFormations;
 
 	/*
 	 * Set up our choice menu for the frame
@@ -19,6 +20,10 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
 		cellAndGridSquare = data;
 		cellGrid = aGrid;
 		cPanel = aPanel;
+		
+		/* Object for creating pre-made cell formations */
+		specialFormations = new SpecialFormation();
+		
 		JMenu choices = new JMenu("Patterns");
 		JMenu speeds = new JMenu("Speeds");
 		JMenu colors = new JMenu("Colors");
@@ -104,7 +109,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
 		 */
 		gliderGun.addActionListener(event -> {
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
-			cellAndGridSquare.createGliderGun();
+			cellAndGridSquare.setNewCellFormation(specialFormations.createGliderGun());
 			cPanel.setGenCount(1);
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
@@ -116,7 +121,7 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
 		 */
 		pulsar.addActionListener(event -> {
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
-			cellAndGridSquare.createPulsar();
+			cellAndGridSquare.setNewCellFormation(specialFormations.createPulsar());
 			cPanel.setGenCount(1);
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
@@ -127,21 +132,21 @@ public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
 		 */
 		Pentomino.addActionListener(event -> {
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
-			cellAndGridSquare.createRPentomino();
+			cellAndGridSquare.setNewCellFormation(specialFormations.createRPentomino());
 			cPanel.setGenCount(1);
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
 		});
 		spider.addActionListener(event -> {
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
-			cellAndGridSquare.createSpider();
+			cellAndGridSquare.setNewCellFormation(specialFormations.createSpider());
 			cPanel.setGenCount(1);
 			cPanel.updateGenLabel();
 			cellGrid.repaint();
 		});
 		custom.addActionListener(event -> {
 			cellAndGridSquare.clearCells(MAX_ROWS, MAX_COLUMNS);
-			cellAndGridSquare.createCustom();
+			cellAndGridSquare.setNewCellFormation(specialFormations.createCustom());
 			cPanel.setGenCount(1);
 			cPanel.updateGenLabel();
 			cellGrid.repaint();

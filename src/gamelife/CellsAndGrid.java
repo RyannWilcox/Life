@@ -276,16 +276,7 @@ public class CellsAndGrid implements RowColumnBounds, MaxMinBounds {
 	public void setNewCellFormation(Cell newCellFormation [][]){
 		cells = newCellFormation;
 	}
-
-	/**
-	 * The choice of zoom
-	 * 
-	 * @return either in,out or normal
-	 */
-	public zooms getChoice() {
-		return choice;
-	}
-
+	
 	/**
 	 * Set the choice of zoom
 	 * 
@@ -294,6 +285,15 @@ public class CellsAndGrid implements RowColumnBounds, MaxMinBounds {
 	 */
 	public void setChoice(zooms c) {
 		choice = c;
+	}
+	
+	/**
+	 * The choice of zoom
+	 * 
+	 * @return either in,out or normal
+	 */
+	public zooms getChoice() {
+		return choice;
 	}
 
 	/**

@@ -12,10 +12,10 @@ public class GridSquare {
 
 	private int squareHeight = 10;
 	private int squareWidth = 10;
-	private int rowNumber = 0;
-	private int columnNumber = 0;
-	private int x = 0;
-	private int y = 0;
+	private int rowNumber;
+	private int columnNumber;
+	private int x;
+	private int y;
 	private int innerWidth = 8;
 	private int innerHeight = 8;
 
@@ -53,48 +53,22 @@ public class GridSquare {
 	}
 
 	/**
-	 * draws a green cell that is considered "alive"
-	 * 
+   * draws a green, red or black cell.
+	 *
 	 * @param g
-	 *            the graphics
-	 */
-	public void drawGreen(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, squareWidth, squareHeight);
-
-		// Gives it a black border!
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, innerWidth, innerHeight);
-	}
-
-	/**
-	 * draws a red cell that is considered "alive"
-	 * 
-	 * @param g
-	 *            the graphics
-	 */
-	public void drawRed(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, squareWidth, squareHeight);
-
-		// Gives it a black border!
-		g.setColor(Color.WHITE);
-		g.drawRect(x, y, innerWidth, innerHeight);
-	}
-
-	/**
-	 * draws a black cell that is considered "alive"
-	 * 
-	 * @param g
-	 *            the graphics
-	 */
-	public void drawBlack(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(x, y, squareWidth, squareHeight);
-
-		// Gives it a gray border!
-		g.setColor(Color.GRAY);
-		g.drawRect(x, y, innerWidth, innerHeight);
+	 *   the graphics
+	 * @param fillColor
+   *   main color
+   * @param borderColor
+   *  outer cell color
+   */	
+	public void drawCellColor(Graphics g, Color fillColor, Color borderColor){
+		g.setColor(fillColor);
+		g.fillRect(x,y,squareWidth, squareHeight);
+		
+		g.setColor(borderColor);
+		g.drawRect(x,y,innerWidth,innerHeight);
+		
 	}
 
 	/**
@@ -105,13 +79,13 @@ public class GridSquare {
 	public void findChosenColor(Graphics g) {
 		switch (clr) {
 		case GREEN:
-			drawGreen(g);
+			drawCellColor(g, Color.GREEN, Color.BLACK);
 			break;
 		case RED:
-			drawRed(g);
+			drawCellColor(g, Color.RED, Color.WHITE);
 			break;
 		case BLACK:
-			drawBlack(g);
+			drawCellColor(g, Color.BLACK, Color.GRAY);
 			break;
 		}
 	}

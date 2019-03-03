@@ -40,12 +40,10 @@ public class GridPanel extends JPanel {
 				}
 				// Make clicked cell alive
 				if (count == 1) {
-					System.out.println("Cell comes alive!!! at: (" + newRow + "," + newCol + ")");
 					cellAndGridSquare.setCellAlive(newRow, newCol);
 				}
 				// Make double-clicked cell dead
 				else if (count == 2) {
-					System.out.println("Cell dies at: (" + newRow + "," + newCol + ")");
 					cellAndGridSquare.setCellDead(newRow, newCol);
 				}
 				repaint();

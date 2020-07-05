@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ControlPanel extends JPanel implements ActionListener, RowColumnBounds {
+public class ControlPanel extends JPanel implements ActionListener, Bounds {
 	private static final long serialVersionUID = 1L;
 	private JButton[] button;
 	private static final String[] BUTTON_STR = { "Go", "Step", "Stop", "Clear", "Quit" };

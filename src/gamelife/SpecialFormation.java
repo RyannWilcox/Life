@@ -1,6 +1,6 @@
 package gamelife;
 
-public class SpecialFormation implements RowColumnBounds {
+public class SpecialFormation implements Bounds {
 	
 	private Cell cellFormation [][];
 	

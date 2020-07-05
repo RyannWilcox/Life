@@ -5,7 +5,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
 
-public class ChoiceMenu extends JMenuBar implements RowColumnBounds {
+public class ChoiceMenu extends JMenuBar implements Bounds {
 	private static final long serialVersionUID = 1L;
 
 	private GridPanel cellGrid;

@@ -10,7 +10,7 @@ import gamelife.GridSquare.colors;
  * @author RyanWilcox
  *
  */
-public class CellsAndGrid implements RowColumnBounds, MaxMinBounds {
+public class CellsAndGrid implements Bounds {
 	private Cell cells[][] = new Cell[MAX_ROWS][MAX_COLUMNS];
 	private GridSquare grid[][] = new GridSquare[MAX_ROWS][MAX_COLUMNS];
 
@@ -91,7 +91,7 @@ public class CellsAndGrid implements RowColumnBounds, MaxMinBounds {
 				}
 				/*
 				 * Adds an extra rule to the game If cell is dead and has
-				 * exactly 6 neighbors the dead cell will come alive Its called
+				 * exactly 6 neighbor the dead cell will come alive Its called
 				 * 'High Life'
 				 */
 				if (useHighLife) {
@@ -119,7 +119,7 @@ public class CellsAndGrid implements RowColumnBounds, MaxMinBounds {
 
 		/*
 		 * Populates the next generation with new empty(dead) cells
-		 */
+		*/
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				nextGen[i][j] = new Cell();

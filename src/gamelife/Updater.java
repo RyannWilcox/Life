@@ -1,6 +1,6 @@
 package gamelife;
 
-public class Updater implements Runnable, RowColumnBounds {
+public class Updater implements Runnable, Bounds {
 	private boolean running = true;
 	private CellsAndGrid cellAndGridSquare;
 	private GridPanel cellGrid;
